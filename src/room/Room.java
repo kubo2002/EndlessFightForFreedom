@@ -2,14 +2,17 @@ package room;
 
 public class Room {
     private RoomGenerator map;
+    private final int positionX = 50;
+    private final int positionY = 50;
+
     public Room() {
         this.map = new RoomGenerator();
     }
 
     public void showMap() {
         int[][] matrixOfMap = this.map.createMap();
-        int positionX = 50;
-        int positionY = 50;
+        int posX = this.positionX;
+        int posY = this.positionY;
         int lengthOfTile = 0;
 
         for (int row = 0; row < matrixOfMap.length; row++) {
@@ -17,11 +20,11 @@ public class Room {
                 Tile tile = new Tile();
                 lengthOfTile = tile.getLengthOfTile();
                 tile.setPicture(matrixOfMap[row][column]);
-                tile.setTilePosition(positionX, positionY);
-                positionX += lengthOfTile;
+                tile.setTilePosition(posX, posY);
+                posX += lengthOfTile;
             }
-            positionY += lengthOfTile;
-            positionX = 50;
+            posY += lengthOfTile;
+            posX = this.positionX;
         }
     }
 }
