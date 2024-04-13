@@ -7,7 +7,7 @@ public class Plocha {
     private Manager manazer;
 
     public Plocha() {
-        this.obrazok = new Image("images/surface/dirtblock_grass.png");
+        this.obrazok = new Image("images/characters/knight/knight_stand.png");
         this.obrazok.makeVisible();
         this.manazer = new Manager();
 
