@@ -1,7 +1,7 @@
 package characters;
 
 public enum TypeOfPerson {
-    KNIGHT("knight", 4);
+    KNIGHT("knight", 2);
 
     private final String name;
     private final int numberOfFrames;

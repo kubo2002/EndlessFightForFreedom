@@ -28,4 +28,7 @@ public abstract class Person {
         this.positionY = y;
         this.image.changePosition(this.positionX, this.positionY);
     }
+
+    public void goTo(int x, int y) {
+    }
 }

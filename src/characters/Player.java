@@ -15,12 +15,10 @@ public class Player extends Person implements Actions {
     }
 
     public void move(int x, int y) {
+        super.animation();
+        super.goTo(x, y);
         System.out.println(x);
         System.out.println(y);
     }
 
-    @Override
-    public void animation() {
-        super.animation();
-    }
 }

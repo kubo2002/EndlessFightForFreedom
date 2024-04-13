@@ -11,7 +11,6 @@ public class Main {
         inventory.drawInventoryOnScreen();
 
         Player player = new Player(50, 50);
-        player.animation();
     }
 
 }
