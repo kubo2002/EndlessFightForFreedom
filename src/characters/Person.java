@@ -1,0 +1,29 @@
+package characters;
+import fri.shapesge.Image;
+public abstract class Person {
+    private TypeOfPerson type;
+    private int numberOfFrames;
+    private int currentFarme;
+    private Image image;
+    private int positionX;
+    private int positionY;
+
+    public Person(TypeOfPerson type) {
+        this.type = type;
+        this.numberOfFrames = type.getNumberOfFrames();
+        this.image = new Image(String.format("images/characters/%s_0.png", this.type.getName()));
+    }
+
+    public void animation() {
+        this.currentFarme += 1;
+        if (this.currentFarme > this.numberOfFrames) {
+            this.currentFarme = 0;
+        }
+        this.image.changeImage(String.format("images/characters/%s_%d.png", this.type.getName(), this.currentFarme));
+        this.image.makeVisible();
+    }
+
+    public void setPosition(int x, int y) {
+
+    }
+}
