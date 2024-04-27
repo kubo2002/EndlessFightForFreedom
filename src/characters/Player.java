@@ -1,14 +1,13 @@
 package characters;
 
 import fri.shapesge.Manager;
+import room.Room;
 
 
 public class Player extends Person implements Actions {
-
     private Manager manager;
-
-    public Player(int positionX, int positionY) {
-        super(TypeOfPerson.KNIGHT);
+    public Player(int positionX, int positionY, Room currentRoom) {
+        super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
         this.manager = new Manager();
         this.manager.manageObject(this);

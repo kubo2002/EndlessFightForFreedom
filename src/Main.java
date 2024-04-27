@@ -10,8 +10,7 @@ public class Main {
 
         Inventory inventory = new Inventory();
         inventory.drawInventoryOnScreen();
-
-        Player player = new Player(50, 50);
+        
     }
 
 }

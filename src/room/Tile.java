@@ -36,4 +36,12 @@ public class Tile {
     public int getLengthOfTile() {
         return this.lengthOfTile;
     }
+
+    public int getPositionX() {
+        return this.positionX;
+    }
+
+    public int getPositionY() {
+        return this.positionY;
+    }
 }

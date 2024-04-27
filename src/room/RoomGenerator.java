@@ -27,6 +27,6 @@ public class RoomGenerator {
 
     public List<Integer> generatePlayerSpawn() {
         Random r = new Random();
-        return List.of(r.nextInt(1, this.map.length - 2), r.nextInt(1, this.map[0].length - 2));
+        return List.of(r.nextInt(2, this.map.length - 2), r.nextInt(2, this.map[0].length - 2));
     }
 }
