@@ -18,4 +18,5 @@ public enum TypeOfPerson {
     public int getNumberOfFrames() {
         return this.numberOfFrames;
     }
+    
 }

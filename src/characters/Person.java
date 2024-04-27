@@ -12,6 +12,7 @@ public abstract class Person {
         this.type = type;
         this.numberOfFrames = type.getNumberOfFrames();
         this.image = new Image(String.format("images/characters/%s/%s_0.png", this.type.getName(), this.type.getName()));
+        this.image.makeVisible();
     }
 
     public void animation() {
@@ -23,12 +24,22 @@ public abstract class Person {
         this.image.makeVisible();
     }
 
+    /***
+     * Aplikovat dijkstrov alg an hladanie optimálnej cesty k cielu.
+     * @param x
+     * @param y
+     */
+    public void moveToDestination(int x, int y) {
+        this.positionX = x;
+        this.positionY = y;
+
+        this.image.changePosition(x, y);
+
+    }
     public void setPosition(int x, int y) {
         this.positionX = x;
         this.positionY = y;
         this.image.changePosition(this.positionX, this.positionY);
     }
 
-    public void goTo(int x, int y) {
-    }
 }

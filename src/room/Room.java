@@ -1,12 +1,19 @@
 package room;
 
+import characters.TypeOfPerson;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
     private RoomGenerator map;
     private final int positionX = 50;
     private final int positionY = 50;
-
-    public Room() {
-        this.map = new RoomGenerator();
+    private TypeOfRoom roomType;
+    public Room(TypeOfRoom roomType) {
+        this.roomType = roomType;
+        this.map = new RoomGenerator(roomType.getNumberOfTilesX(), roomType.getNumberOfTilesY());
     }
 
     public void showMap() {
@@ -26,5 +33,11 @@ public class Room {
             posY += lengthOfTile;
             posX = this.positionX;
         }
+    }
+
+    private void putPlayer() {
+        List<Integer> spawn = this.map.generatePlayerSpawn();
+
+
     }
 }

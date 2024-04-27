@@ -13,11 +13,11 @@ public enum TypeOfRoom {
         this.numberOfTilesY = numberOfTilesY;
     }
 
-    private int getNumberOfTilesX() {
+    public int getNumberOfTilesX() {
         return this.numberOfTilesX;
     }
 
-    private int getNumberOfTilesY() {
+    public int getNumberOfTilesY() {
         return this.numberOfTilesY;
     }
 }
