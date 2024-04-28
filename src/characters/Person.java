@@ -35,36 +35,33 @@ public abstract class Person {
      * @param y
      */
     public void moveToDestination(int x, int y) {
-        this.positionX = x;
-        this.positionY = y;
+
 
         Tile[][] map = this.currentRoom.getAllTiles();
 
         int destX = (x - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
         int destY = (y - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
 
-        System.out.println(map[destY][destX].getPositionX());
-        System.out.println(map[destY][destX].getPositionY());
-        if (!map[destY][destX].isOccupied()) {
-            map[y][x].setOccupied(false); //nefunguje
-            map[destY][destX].setOccupied(true);
-            System.out.println(String.format("Current X : %d Current Y : %d", y, x));
-            System.out.println(String.format("dest X : %d dest Y : %d", destY, destX));
-            this.image.changePosition(map[destY][destX].getPositionX(), map[destY][destX].getPositionY());
+        if (destX < map[0].length && destY < map.length) {
+            if (!map[destY][destX].isOccupied()) {
+                map[this.positionY][this.positionX].setOccupied(false);
+                map[destY][destX].setOccupied(true);
+                this.positionX = destX;
+                this.positionY = destY;
+                this.image.changePosition(map[destY][destX].getPositionX(), map[destY][destX].getPositionY());
+            }
         }
-        //TODO Urobit premiestnovanie na konkretne kachlicky + nastavit na kachlicke info ze je obsadena
-
-
     }
     public void setPosition(int x, int y) {
-        this.positionX = x - 45;
-        this.positionY = y - 45;
+        this.positionX = x;
+        this.positionY = y;
         this.image.changePosition(this.positionX, this.positionY);
     }
 
     private int[][] shortestPath(int destX, int destY) {
         int currentX = this.positionX;
         int currentY = this.positionY;
+
 
         return null;
     }

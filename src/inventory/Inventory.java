@@ -1,6 +1,7 @@
 package inventory;
 
 import fri.shapesge.Image;
+import room.Tile;
 import room.TileType;
 
 import java.util.Optional;
@@ -49,9 +50,11 @@ public class Inventory {
 
         for (int row = 0; row < this.numberOfRows; row++) {
             for (int column = 0; column < this.numberOfColumns; column++) {
-                Image imageOfSlot = new Image(TileType.INVENTORY_SLOT.getPath());
-                imageOfSlot.changePosition(posX, posY);
-                imageOfSlot.makeVisible();
+                Tile slot = new Tile();
+                slot.setPicture(TileType.INVENTORY_SLOT.getID());
+                slot.setOccupied(true);
+                slot.setTilePosition(posX, posY);
+
                 posX += this.lengthOfTile;
             }
             posY += this.lengthOfTile;
