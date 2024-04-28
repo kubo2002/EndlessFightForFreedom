@@ -7,6 +7,7 @@ import room.Tile;
 
 public class Player extends Person implements Actions {
     private Manager manager;
+    private int amountOfCoins; //TODO pridat zbieranie minci
     public Player(int positionX, int positionY, Room currentRoom) {
         super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
@@ -20,6 +21,8 @@ public class Player extends Person implements Actions {
 
     @Override
     public void fight(Tile tile) {
-
+        //TODO utocenie z blizka || hadzanie spellov
     }
+
+    //TODO nakup itemov
 }

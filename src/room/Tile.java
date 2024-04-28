@@ -1,14 +1,18 @@
 package room;
 
 import fri.shapesge.Image;
+
+import java.util.ArrayList;
+
 public class Tile {
     private int positionX;
     private int positionY;
     private final int lengthOfTile = 90;
     private Image image;
     private boolean isOccupied;
+    private ArrayList<Tile> surroundings;
     public Tile() {
-
+        this.surroundings = new ArrayList<>();
     }
     public void setPicture(int type) {
         switch (type) {
@@ -58,5 +62,11 @@ public class Tile {
     }
     public void setOccupied(boolean occupied) {
         this.isOccupied = occupied;
+    }
+    public void addSurrounding(Tile tile) {
+        this.surroundings.add(tile);
+    }
+    public ArrayList<Tile> getSurroundings() {
+        return this.surroundings;
     }
 }

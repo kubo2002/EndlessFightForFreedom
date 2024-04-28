@@ -34,8 +34,21 @@ public class Room {
             posX = this.positionX;
         }
         this.putPlayer(this.tiles[0][0].getLengthOfTile());
+        this.setSurroundings();
     }
 
+    private void setSurroundings() {
+        for (int row = 1; row < this.tiles.length - 1; row++) {
+            for (int column = 1; column < this.tiles[row].length - 1; column++) {
+                if ((row > 1 && row < this.tiles.length - 1) && (column > 1 && column < this.tiles.length - 1 )) {
+                    this.tiles[row][column].addSurrounding(this.tiles[row][column - 1]);
+                    this.tiles[row][column].addSurrounding(this.tiles[row][column + 1]);
+                    this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
+                    this.tiles[row][column].addSurrounding(this.tiles[row + 1][column]);
+                }
+            }
+        }
+    }
     private void putPlayer(int lengthOfTile) {
         List<Integer> spawn = this.map.generatePlayerSpawn();
         int x = spawn.getFirst();
@@ -47,7 +60,6 @@ public class Room {
     public Tile[][] getAllTiles() {
         return this.tiles;
     }
-
 
     public int getPositionX() {
         return this.positionX;

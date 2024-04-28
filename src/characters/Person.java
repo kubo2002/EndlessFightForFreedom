@@ -55,13 +55,16 @@ public abstract class Person {
     public void setPosition(int x, int y) {
         this.positionX = x;
         this.positionY = y;
-        this.image.changePosition(this.positionX, this.positionY);
+        this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
     }
 
     private int[][] shortestPath(int destX, int destY) {
         int currentX = this.positionX;
         int currentY = this.positionY;
 
+        Tile[][] tiles = this.currentRoom.getAllTiles();
+
+        //TODO urcenie najkratsej cesty k cielu
 
         return null;
     }
