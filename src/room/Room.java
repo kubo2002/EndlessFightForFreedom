@@ -38,8 +38,8 @@ public class Room {
 
     private void putPlayer(int lengthOfTile) {
         List<Integer> spawn = this.map.generatePlayerSpawn();
-        int x = spawn.getFirst() * lengthOfTile;
-        int y = spawn.getLast() * lengthOfTile;
+        int x = spawn.getFirst();
+        int y = spawn.getLast();
 
         Player player = new Player(x, y, this);
     }
@@ -49,4 +49,11 @@ public class Room {
     }
 
 
+    public int getPositionX() {
+        return this.positionX;
+    }
+
+    public int getPositionY() {
+        return this.positionY;
+    }
 }

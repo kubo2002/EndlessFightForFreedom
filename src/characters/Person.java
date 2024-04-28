@@ -38,11 +38,20 @@ public abstract class Person {
         this.positionX = x;
         this.positionY = y;
 
-        int destX = x / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
-        int destY = y / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
-
         Tile[][] map = this.currentRoom.getAllTiles();
 
+        int destX = (x - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
+        int destY = (y - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
+
+        System.out.println(map[destY][destX].getPositionX());
+        System.out.println(map[destY][destX].getPositionY());
+        if (!map[destY][destX].isOccupied()) {
+            map[y][x].setOccupied(false); //nefunguje
+            map[destY][destX].setOccupied(true);
+            System.out.println(String.format("Current X : %d Current Y : %d", y, x));
+            System.out.println(String.format("dest X : %d dest Y : %d", destY, destX));
+            this.image.changePosition(map[destY][destX].getPositionX(), map[destY][destX].getPositionY());
+        }
         //TODO Urobit premiestnovanie na konkretne kachlicky + nastavit na kachlicke info ze je obsadena
 
 
@@ -53,4 +62,10 @@ public abstract class Person {
         this.image.changePosition(this.positionX, this.positionY);
     }
 
+    private int[][] shortestPath(int destX, int destY) {
+        int currentX = this.positionX;
+        int currentY = this.positionY;
+
+        return null;
+    }
 }

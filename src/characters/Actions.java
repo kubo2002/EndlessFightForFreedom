@@ -1,5 +1,7 @@
 package characters;
 
-public interface Actions {
+import room.Tile;
 
+public interface Actions {
+    void fight(Tile tile);
 }

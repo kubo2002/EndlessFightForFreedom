@@ -2,6 +2,7 @@ package characters;
 
 import fri.shapesge.Manager;
 import room.Room;
+import room.Tile;
 
 
 public class Player extends Person implements Actions {
@@ -17,4 +18,8 @@ public class Player extends Person implements Actions {
         super.moveToDestination(x, y);
     }
 
+    @Override
+    public void fight(Tile tile) {
+
+    }
 }

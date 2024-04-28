@@ -1,4 +1,3 @@
-import characters.Player;
 import inventory.Inventory;
 import room.Room;
 import room.TypeOfRoom;
