@@ -63,11 +63,10 @@ public abstract class Person {
         this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
     }
 
-    private int[][] shortestPath(int destX, int destY) {
+    private ArrayList<Tile> shortestPath(int destX, int destY) {
         int currentX = this.positionX;
         int currentY = this.positionY;
 
-        System.out.println(currentX);
         int destionationX = (destX - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
         int destionationY = (destY - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
 
@@ -77,14 +76,27 @@ public abstract class Person {
         ArrayList<Tile> queue = new ArrayList<>();
         queue.add(currentTile.get());
 
+        boolean start = true;
+
         if (destinationTile.isPresent()) {
+            int index = 0;
             do {
+                Tile c = queue.get(index); // vyberam vzdy prvy z rady a skumam jeho susedov
+                for (Tile surrounder : c.getSurroundings()) { // prechadzam susedmi akzualnej kachlicky
+                    if (!surrounder.isOccupied()) {
+                        surrounder.setPrecursor(c);
+                        queue.add(surrounder);
+                        if (surrounder == destinationTile.get()) {
+                            start = false;
+                        }
 
-            } while (true);
+                    }
+                }
+                index += 1;
+            } while (start);
         }
+
+        return queue;
         //TODO urcenie najkratsej cesty k cielu
-
-
-        return null;
     }
 }

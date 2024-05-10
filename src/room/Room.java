@@ -56,7 +56,7 @@ public class Room {
                     this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
                 }
                 if (row + 1 <= this.tiles.length) {
-                    this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
+                    this.tiles[row][column].addSurrounding(this.tiles[row + 1][column]);
                 }
             }
         }
