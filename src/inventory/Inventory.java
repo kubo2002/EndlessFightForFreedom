@@ -1,10 +1,7 @@
 package inventory;
 
-import fri.shapesge.Image;
 import room.Tile;
 import room.TileType;
-
-import java.util.Optional;
 
 public class Inventory {
     private InventorySlot[][] slots;
@@ -61,5 +58,4 @@ public class Inventory {
             posX = this.positionX;
         }
     }
-
 }

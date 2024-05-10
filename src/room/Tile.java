@@ -10,6 +10,7 @@ public class Tile {
     private final int lengthOfTile = 90;
     private Image image;
     private boolean isOccupied;
+    private Tile precursor;
     private ArrayList<Tile> surroundings;
     public Tile() {
         this.surroundings = new ArrayList<>();
@@ -45,6 +46,12 @@ public class Tile {
         this.image.makeVisible();
     }
 
+    public void setPrecursor(Tile precursor) {
+        this.precursor = precursor;
+    }
+    public Tile getPrecursor() {
+        return this.precursor;
+    }
     public int getLengthOfTile() {
         return this.lengthOfTile;
     }
@@ -56,7 +63,6 @@ public class Tile {
     public int getPositionY() {
         return this.positionY;
     }
-
     public boolean isOccupied() {
         return this.isOccupied;
     }
@@ -66,6 +72,7 @@ public class Tile {
     public void addSurrounding(Tile tile) {
         this.surroundings.add(tile);
     }
+
     public ArrayList<Tile> getSurroundings() {
         return this.surroundings;
     }

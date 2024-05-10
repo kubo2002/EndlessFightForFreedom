@@ -4,6 +4,7 @@ package room;
 import characters.Player;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Room {
     private RoomGenerator map;
@@ -37,14 +38,25 @@ public class Room {
         this.setSurroundings();
     }
 
+    /***
+     * Funguje len pre stvorcove
+     *
+     * Nastavi pre kazdu dlazdicu okolite dlazdice
+     */
     private void setSurroundings() {
         for (int row = 1; row < this.tiles.length - 1; row++) {
             for (int column = 1; column < this.tiles[row].length - 1; column++) {
-                if ((row > 1 && row < this.tiles.length - 1) && (column > 1 && column < this.tiles.length - 1 )) {
+                if (column - 1 > 0) {
                     this.tiles[row][column].addSurrounding(this.tiles[row][column - 1]);
+                }
+                if (column + 1 <= this.tiles[row].length) {
                     this.tiles[row][column].addSurrounding(this.tiles[row][column + 1]);
+                }
+                if (row - 1 > 0) {
                     this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
-                    this.tiles[row][column].addSurrounding(this.tiles[row + 1][column]);
+                }
+                if (row + 1 <= this.tiles.length) {
+                    this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
                 }
             }
         }
@@ -57,6 +69,19 @@ public class Room {
         Player player = new Player(x, y, this);
     }
 
+    /**
+     * Vrati tile na ktorom sme klikli mysou alebo na ktorom prave stojime
+     * @param x
+     * @param y
+     * @return
+     */
+    public Optional<Tile> getTileByCoordinates(int x, int y) {
+        if ((0 < x && x < this.tiles.length - 1) && (0 < y && y < this.tiles.length - 1)) {
+            return Optional.of(this.tiles[y][x]);
+        } else {
+            return Optional.empty();
+        }
+    }
     public Tile[][] getAllTiles() {
         return this.tiles;
     }

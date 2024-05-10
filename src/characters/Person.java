@@ -3,6 +3,9 @@ import fri.shapesge.Image;
 import room.Room;
 import room.Tile;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 public abstract class Person {
     private Room currentRoom;
     private TypeOfPerson type;
@@ -42,6 +45,8 @@ public abstract class Person {
         int destX = (x - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
         int destY = (y - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
 
+        this.shortestPath(x, y);
+
         if (destX < map[0].length && destY < map.length) {
             if (!map[destY][destX].isOccupied()) {
                 map[this.positionY][this.positionX].setOccupied(false);
@@ -53,7 +58,7 @@ public abstract class Person {
         }
     }
     public void setPosition(int x, int y) {
-        this.positionX = x;
+        this.positionX = x; // tu to prepocita z (255, 256) na (2,3)
         this.positionY = y;
         this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
     }
@@ -62,9 +67,23 @@ public abstract class Person {
         int currentX = this.positionX;
         int currentY = this.positionY;
 
-        Tile[][] tiles = this.currentRoom.getAllTiles();
+        System.out.println(currentX);
+        int destionationX = (destX - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
+        int destionationY = (destY - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
 
+        Optional<Tile> currentTile = this.currentRoom.getTileByCoordinates(currentX, currentY);
+        Optional<Tile> destinationTile = this.currentRoom.getTileByCoordinates(destionationX, destionationY);
+
+        ArrayList<Tile> queue = new ArrayList<>();
+        queue.add(currentTile.get());
+
+        if (destinationTile.isPresent()) {
+            do {
+
+            } while (true);
+        }
         //TODO urcenie najkratsej cesty k cielu
+
 
         return null;
     }
