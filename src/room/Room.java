@@ -1,10 +1,5 @@
 package room;
 
-import characters.Merchant;
-import characters.Player;
-import java.util.List;
-
-
 public class Room {
     private RoomGenerator map;
     private final int positionX = 50;
@@ -32,7 +27,6 @@ public class Room {
             posY += this.tiles[row][0].getLengthOfTile();
             posX = this.positionX;
         }
-        this.spawnCharacters();
         this.setSurroundings();
     }
 
@@ -59,28 +53,6 @@ public class Room {
             }
         }
     }
-    private void spawnCharacters() {
-        if (this.roomType == TypeOfRoom.MARKET) {
-
-            Player player = new Player(1, 1, this);
-
-            List<Integer> spawnMerchant = this.map.generatePlayerSpawn();
-            int merchantX = spawnMerchant.getFirst();
-            int merchantY = spawnMerchant.getLast();
-
-            Merchant merchant = new Merchant(merchantX, merchantY, this);
-
-        } else if (this.roomType == TypeOfRoom.BATTLEGROUND) {
-            List<Integer> spawnMerchant = this.map.generatePlayerSpawn();
-
-            int playerX = spawnMerchant.getFirst();
-            int playerY = spawnMerchant.getLast();
-
-            Player player = new Player(playerX, playerY, this);
-
-        }
-
-    }
 
     public boolean isAbleToMove(int x, int y) {
         return !this.tiles[x][y].isOccupied();
@@ -96,4 +68,11 @@ public class Room {
     public int getPositionY() {
         return this.positionY;
     }
+    public RoomGenerator getMap() {
+        return this.map;
+    }
+    public TypeOfRoom getRoomType() {
+        return this.roomType;
+    }
+
 }

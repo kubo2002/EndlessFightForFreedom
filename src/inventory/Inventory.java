@@ -22,7 +22,6 @@ public class Inventory {
         }
 
     }
-
     public void addItem(Item item) {
         int counter = 0;
 
@@ -40,7 +39,6 @@ public class Inventory {
             System.out.println("Inventory is full !");
         }
     }
-
     public void drawInventoryOnScreen() {
         int posX = this.positionX;
         int posY = this.positionY;

@@ -6,9 +6,9 @@ public abstract class Item {
     private int positionY;
     private boolean inInventory;
     public Item(int positionX, int positionY) {
-
         this.positionX = positionX;
         this.positionY = positionY;
+
     }
     public abstract void perform();
 

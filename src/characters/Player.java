@@ -1,17 +1,21 @@
 package characters;
 
 import fri.shapesge.Manager;
+import inventory.Inventory;
+import room.Market;
 import room.Room;
 import room.Tile;
 
 public class Player extends Person implements Actions {
     private Manager manager;
+    private Inventory inventory;
     private int amountOfCoins; //TODO pridat zbieranie minci
     public Player(int positionX, int positionY, Room currentRoom) {
         super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
         this.manager = new Manager();
         this.manager.manageObject(this);
+        this.inventory = new Inventory();
     }
 
     public void moveUp() {
@@ -47,6 +51,18 @@ public class Player extends Person implements Actions {
         }
     }
 
+    public void wakeMerchantUp(int x, int y) {
+        int clickedX = (x - this.getCurrentRoom().getPositionX()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
+        int clickedY = (y - this.getCurrentRoom().getPositionY()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
+
+        if (super.getCurrentRoom() instanceof Market) {
+            var market = (Market)super.getCurrentRoom();
+            var merchant = market.getMerchant();
+            if (clickedX == merchant.getPositionX() && clickedY == merchant.getPositionY()) {
+                merchant.getOffer();
+            }
+        }
+    }
     @Override
     public void performAttack(Tile tile) {
 
