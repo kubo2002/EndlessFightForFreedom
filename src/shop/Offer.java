@@ -47,7 +47,6 @@ public class Offer {
         for (int row = 0; row < this.numberOfRows; row++) {
             for (Item warehouseSlot : this.offer.keySet()) {
                 Tile slot = new Tile();
-
                 slot.setPicture(TileType.INVENTORY_SLOT.getID());
                 slot.setOccupied(true);
                 slot.setTilePosition(posX, posY);
