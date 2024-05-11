@@ -20,9 +20,12 @@ public class Witch extends Person implements Actions {
         this.manager.manageObject(this);
     }
 
+    //TODO skraslit vetvy ifov
     public void tick() {
-        if (this.target.getPositionX()  == super.getPositionX() || this.target.getPositionY() == super.getPositionY()) {
-            System.out.println(String.format("je v ceste | moja x : %d | jeho x : %d", super.getPositionX(), this.target.getPositionX()));
+        if (this.target.getPositionX()  == super.getPositionX()) {
+
+        } else if (this.target.getPositionY() == super.getPositionY()) {
+
         }
     }
     @Override

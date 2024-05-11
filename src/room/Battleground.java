@@ -21,5 +21,6 @@ public class Battleground extends Room {
 
         Player player = new Player(1, 1, this);
         Witch witch = new Witch(5, 5, this, player);
+
     }
 }

@@ -11,7 +11,7 @@ public class Projectile {
         this.positionX = positionX;
         this.positionY = positionY;
         this.type = type;
-        this.image = new Image(String.format("images/projectiles/%s_projectile.png", type.getPath()));
+        this.image = new Image(String.format("images/projectiles/%s.png", type.getPath()));
     }
     public void move(int x, int y) {
         this.image.moveHorizontal(x);
