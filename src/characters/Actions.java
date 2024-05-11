@@ -1,9 +1,9 @@
 package characters;
 
-import room.Tile;
-
 public interface Actions {
-    void performAttack(Tile tile);
+    void performAttack(Actions person);
+    void receiveAttack(double damage);
+    void die();
 
 
 }

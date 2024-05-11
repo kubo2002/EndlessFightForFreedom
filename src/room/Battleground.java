@@ -1,6 +1,7 @@
 package room;
 
 import characters.Player;
+import characters.Witch;
 
 import java.util.List;
 
@@ -13,9 +14,12 @@ public class Battleground extends Room {
     public void spawnCharacters() {
         List<Integer> spawnMerchant = super.getMap().generatePlayerSpawn();
 
-        int playerX = spawnMerchant.getFirst();
-        int playerY = spawnMerchant.getLast();
+        //int playerX = spawnMerchant.getFirst();
+        //int playerY = spawnMerchant.getLast();
 
-        Player player = new Player(playerX, playerY, this);
+        //TODO dat si pozor aby sa nespawnovali na seba
+
+        Player player = new Player(1, 1, this);
+        Witch witch = new Witch(5, 5, this, player);
     }
 }

@@ -4,15 +4,16 @@ import fri.shapesge.Manager;
 import inventory.Inventory;
 import room.Market;
 import room.Room;
-import room.Tile;
 
 public class Player extends Person implements Actions {
     private Manager manager;
     private Inventory inventory;
     private int amountOfCoins; //TODO pridat zbieranie minci
+    private double damage;
     public Player(int positionX, int positionY, Room currentRoom) {
         super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
+        this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
         this.inventory = new Inventory();
@@ -64,9 +65,21 @@ public class Player extends Person implements Actions {
         }
     }
     @Override
-    public void performAttack(Tile tile) {
-
+    public void performAttack(Actions person) {
+        person.receiveAttack(this.damage);
     }
 
-    //TODO nakup itemov
+    @Override
+    public void receiveAttack(double damage) {
+        super.getHpBar().subtractLife(damage);
+        //TODO dokoncit co sa ma stat ked zomrie hrdina
+    }
+
+    @Override
+    public void die() {
+        super.getHpBar().hideHpBar();
+        super.getImage().makeInvisible();
+        //TODO dorobit garbage collector
+    }
+
 }
