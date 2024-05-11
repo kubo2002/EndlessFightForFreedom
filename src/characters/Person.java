@@ -23,80 +23,40 @@ public abstract class Person {
         this.image.makeVisible();
     }
 
-    public void animation() {
-        this.currentFarme += 1;
-        if (this.currentFarme > this.numberOfFrames) {
-            this.currentFarme = 0;
-        }
-        this.image.changeImage(String.format("images/characters/%s/%s_%d.png", this.type.getName(), this.type.getName(), this.currentFarme));
-        this.image.makeVisible();
-    }
-
-    /***
-     * Aplikovat dijkstrov alg an hladanie optimálnej cesty k cielu.
-     * @param x
-     * @param y
-     */
-    public void moveToDestination(int x, int y) {
-
-
-        Tile[][] map = this.currentRoom.getAllTiles();
-
-        int destX = (x - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
-        int destY = (y - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
-
-        this.shortestPath(x, y);
-
-        if (destX < map[0].length && destY < map.length) {
-            if (!map[destY][destX].isOccupied()) {
-                map[this.positionY][this.positionX].setOccupied(false);
-                map[destY][destX].setOccupied(true);
-                this.positionX = destX;
-                this.positionY = destY;
-                this.image.changePosition(map[destY][destX].getPositionX(), map[destY][destX].getPositionY());
-            }
-        }
+    public void moveImage(int x, int y) {
+        this.image.moveHorizontal(x);
+        this.image.moveVertical(y);
     }
     public void setPosition(int x, int y) {
         this.positionX = x; // tu to prepocita z (255, 256) na (2,3)
         this.positionY = y;
+        this.currentRoom.getAllTiles()[this.positionY][this.positionX].setOccupied(true);
         this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
     }
 
-    private ArrayList<Tile> shortestPath(int destX, int destY) {
-        int currentX = this.positionX;
-        int currentY = this.positionY;
+    public void changeOccupiedPosition(int x , int y, boolean occupied) {
+        this.currentRoom.getAllTiles()[x][y].setOccupied(occupied);
+    }
+    public Room getCurrentRoom() {
+        return this.currentRoom;
+    }
+    public Image getImage() {
+        return this.image;
+    }
 
-        int destionationX = (destX - this.currentRoom.getPositionX()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
-        int destionationY = (destY - this.currentRoom.getPositionY()) / this.currentRoom.getAllTiles()[0][0].getLengthOfTile();
+    public int getPositionX() {
+        return this.positionX;
+    }
 
-        Optional<Tile> currentTile = this.currentRoom.getTileByCoordinates(currentX, currentY);
-        Optional<Tile> destinationTile = this.currentRoom.getTileByCoordinates(destionationX, destionationY);
+    public int getPositionY() {
+        return this.positionY;
+    }
 
-        ArrayList<Tile> queue = new ArrayList<>();
-        queue.add(currentTile.get());
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
 
-        boolean start = true;
-
-        if (destinationTile.isPresent()) {
-            int index = 0;
-            do {
-                Tile c = queue.get(index); // vyberam vzdy prvy z rady a skumam jeho susedov
-                for (Tile surrounder : c.getSurroundings()) { // prechadzam susedmi akzualnej kachlicky
-                    if (!surrounder.isOccupied()) {
-                        surrounder.setPrecursor(c);
-                        queue.add(surrounder);
-                        if (surrounder == destinationTile.get()) {
-                            start = false;
-                        }
-
-                    }
-                }
-                index += 1;
-            } while (start);
-        }
-
-        return queue;
-        //TODO urcenie najkratsej cesty k cielu
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 }

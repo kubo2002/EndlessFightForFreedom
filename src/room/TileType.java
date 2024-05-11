@@ -2,6 +2,7 @@ package room;
 
 public enum TileType {
     STONE_WALL("images/walls/stonewall.png", 1, true),
+    DOORS("images/walls/closeDoors.png", 6, true),
     DIRT_FLOWERS("images/surface/dirtblock_clean.png", 2, false),
     DIRT_CLEAN("images/surface/dirtblock_flowers.png", 3, false),
     DIRT_GRASS("images/surface/dirtblock_grass.png", 4, false),

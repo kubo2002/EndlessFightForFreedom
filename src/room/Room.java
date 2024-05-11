@@ -1,10 +1,9 @@
 package room;
 
-
+import characters.Merchant;
 import characters.Player;
-
 import java.util.List;
-import java.util.Optional;
+
 
 public class Room {
     private RoomGenerator map;
@@ -23,7 +22,6 @@ public class Room {
         int posX = this.positionX;
         int posY = this.positionY;
 
-
         for (int row = 0; row < matrixOfMap.length; row++) {
             for (int column = 0; column < matrixOfMap[row].length; column++) {
                 this.tiles[row][column] = new Tile();
@@ -34,7 +32,7 @@ public class Room {
             posY += this.tiles[row][0].getLengthOfTile();
             posX = this.positionX;
         }
-        this.putPlayer(this.tiles[0][0].getLengthOfTile());
+        this.spawnCharacters();
         this.setSurroundings();
     }
 
@@ -61,26 +59,31 @@ public class Room {
             }
         }
     }
-    private void putPlayer(int lengthOfTile) {
-        List<Integer> spawn = this.map.generatePlayerSpawn();
-        int x = spawn.getFirst();
-        int y = spawn.getLast();
+    private void spawnCharacters() {
+        if (this.roomType == TypeOfRoom.MARKET) {
 
-        Player player = new Player(x, y, this);
+            Player player = new Player(1, 1, this);
+
+            List<Integer> spawnMerchant = this.map.generatePlayerSpawn();
+            int merchantX = spawnMerchant.getFirst();
+            int merchantY = spawnMerchant.getLast();
+
+            Merchant merchant = new Merchant(merchantX, merchantY, this);
+
+        } else if (this.roomType == TypeOfRoom.BATTLEGROUND) {
+            List<Integer> spawnMerchant = this.map.generatePlayerSpawn();
+
+            int playerX = spawnMerchant.getFirst();
+            int playerY = spawnMerchant.getLast();
+
+            Player player = new Player(playerX, playerY, this);
+
+        }
+
     }
 
-    /**
-     * Vrati tile na ktorom sme klikli mysou alebo na ktorom prave stojime
-     * @param x
-     * @param y
-     * @return
-     */
-    public Optional<Tile> getTileByCoordinates(int x, int y) {
-        if ((0 < x && x < this.tiles.length - 1) && (0 < y && y < this.tiles.length - 1)) {
-            return Optional.of(this.tiles[y][x]);
-        } else {
-            return Optional.empty();
-        }
+    public boolean isAbleToMove(int x, int y) {
+        return !this.tiles[x][y].isOccupied();
     }
     public Tile[][] getAllTiles() {
         return this.tiles;

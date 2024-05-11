@@ -12,13 +12,19 @@ public class RoomGenerator {
     public int[][] createMap() {
         Random r = new Random();
 
+        int doorSpawn = r.nextInt(1, this.map.length - 2);
+
         for (int row = 0; row < this.map.length; row++) {
             for (int column = 0; column < this.map[row].length; column++) {
-                if (row == 0 || row == this.map.length - 1 || column == 0 || column == this.map.length - 1) {
-                    this.map[row][column] = 1;
+                if (row == 0 && column == doorSpawn) {
+                    this.map[row][column] = 6;
                 } else {
-                    int typeOfTile = r.nextInt(2, 5);
-                    this.map[row][column] = typeOfTile;
+                    if (row == 0 || row == this.map.length - 1 || column == 0 || column == this.map.length - 1) {
+                        this.map[row][column] = 1;
+                    } else {
+                        int typeOfTile = r.nextInt(2, 5);
+                        this.map[row][column] = typeOfTile;
+                    }
                 }
             }
         }

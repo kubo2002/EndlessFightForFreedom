@@ -33,6 +33,10 @@ public class Tile {
                 this.image = new Image(TileType.DIRT_GRASS.getPath());
                 this.isOccupied = TileType.DIRT_GRASS.isOccupied();
                 break;
+            case 6:
+                this.image = new Image(TileType.DOORS.getPath());
+                this.isOccupied = TileType.DOORS.isOccupied();
+                break;
             case 0:
                 this.image = new Image(TileType.INVENTORY_SLOT.getPath());
                 this.isOccupied = TileType.INVENTORY_SLOT.isOccupied();
