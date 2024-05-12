@@ -1,7 +1,7 @@
 package inventory;
 
 public enum TypeOfItem {
-    HEAL("swordDamageSpell", 0, 2.5);
+    HEAL("healingSpell", 0, 1);
     private final String path;
     private final double power;
     private final double cost;

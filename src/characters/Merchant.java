@@ -2,6 +2,7 @@ package characters;
 
 import inventory.HealingSpell;
 import inventory.Item;
+import inventory.TypeOfItem;
 import room.Room;
 import shop.Offer;
 
@@ -9,6 +10,7 @@ import java.util.HashMap;
 
 public class Merchant extends Person {
     private HashMap<Item, Double> offer;
+    private Offer offerSlots;
     private int positionX;
     private int positionY;
     private double bank;
@@ -17,19 +19,19 @@ public class Merchant extends Person {
         super(TypeOfPerson.MERCHANT, currentRoom);
         super.setPosition(positionX, positionY);
         this.offer = new HashMap<>();
-        this.offer.put(new HealingSpell(), 2.4);
+        this.offer.put(new HealingSpell(), TypeOfItem.HEAL.getCost());
         this.positionX = positionX;
         this.positionY = positionY;
+        this.offerSlots = new Offer(this.offer);
     }
 
     public HashMap<Item, Double> getOffer() {
-        var offerSlots = new Offer(this.offer, this.bank);
-        offerSlots.drawOfferOnScreen();
+        this.offerSlots.offerOnScreen();
         return this.offer;
     }
 
     public void setPlayersBank(double bank) {
-        this.bank = bank;
+        this.offerSlots.setBank(bank);
     }
 
 }

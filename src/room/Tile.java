@@ -37,10 +37,6 @@ public class Tile {
                 this.image = new Image(TileType.DOORS.getPath());
                 this.isOccupied = TileType.DOORS.isOccupied();
                 break;
-            case 0:
-                this.image = new Image(TileType.INVENTORY_SLOT.getPath());
-                this.isOccupied = TileType.INVENTORY_SLOT.isOccupied();
-                break;
         }
     }
     public void setTilePosition(int x, int y) {

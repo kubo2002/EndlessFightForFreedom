@@ -5,8 +5,7 @@ public enum TileType {
     DOORS("images/walls/closeDoors.png", 6, true),
     DIRT_FLOWERS("images/surface/dirtblock_clean.png", 2, false),
     DIRT_CLEAN("images/surface/dirtblock_flowers.png", 3, false),
-    DIRT_GRASS("images/surface/dirtblock_grass.png", 4, false),
-    INVENTORY_SLOT("images/inventorySlots/inventorySlot.png", 0, true);
+    DIRT_GRASS("images/surface/dirtblock_grass.png", 4, false);
 
     private final String path;
     private final int idNumber;

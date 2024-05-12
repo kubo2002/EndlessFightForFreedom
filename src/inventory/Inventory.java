@@ -1,7 +1,5 @@
 package inventory;
 
-import room.Tile;
-import room.TileType;
 
 public class Inventory {
     private InventorySlot[][] slots;
@@ -46,11 +44,7 @@ public class Inventory {
 
         for (int row = 0; row < this.numberOfRows; row++) {
             for (int column = 0; column < this.numberOfColumns; column++) {
-                Tile slot = new Tile();
-                slot.setPicture(TileType.INVENTORY_SLOT.getID());
-                slot.setOccupied(true);
-                slot.setTilePosition(posX, posY);
-
+                this.slots[row][column].setSlotPosition(posX, posY);
                 posX += this.lengthOfTile;
             }
             posY += this.lengthOfTile;

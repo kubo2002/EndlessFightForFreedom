@@ -60,6 +60,7 @@ public class Player extends Person implements Actions {
             var market = (Market)super.getCurrentRoom();
             var merchant = market.getMerchant();
             if (clickedX == merchant.getPositionX() && clickedY == merchant.getPositionY()) {
+                merchant.setPlayersBank(50);
                 merchant.getOffer();
             }
         }
