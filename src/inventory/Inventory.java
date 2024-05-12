@@ -11,6 +11,7 @@ public class Inventory {
     private final int lengthOfTile = 90;
     private final int positionX = 1220;
     private final int positionY = 50;
+    private boolean visible;
 
     public Inventory() {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];

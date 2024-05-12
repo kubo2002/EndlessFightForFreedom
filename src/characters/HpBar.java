@@ -1,22 +1,30 @@
 package characters;
 import fri.shapesge.Rectangle;
 public class HpBar {
+    private double fullHP;
     private double hp;
     private Rectangle mainIdicator;
     private Rectangle background;
     private int positionX;
     private int positionY;
+    private final int widthOfIndicator = 50;
 
-    public HpBar() {
+    public HpBar(double hp) {
+        this.fullHP = hp;
+        this.hp = this.fullHP;
         this.background = new Rectangle(this.positionX, this.positionY);
         this.background.changeColor("black");
-        this.background.changeSize(50, 8);
+        this.background.changeSize(this.widthOfIndicator, 8);
 
         this.mainIdicator = new Rectangle(this.positionX, this.positionY);
         this.mainIdicator.changeColor("green");
-        this.mainIdicator.changeSize(50, 8);
+        this.mainIdicator.changeSize(this.widthOfIndicator, 8);
     }
     public void subtractLife(double count) {
+        int c = (int)(this.hp - count);
+        int newWidth =  (int)(c * this.widthOfIndicator / this.fullHP);
+
+        this.mainIdicator.changeSize(newWidth,  8);
         this.hp -= count;
     }
 
@@ -34,6 +42,7 @@ public class HpBar {
         this.mainIdicator.changePosition(x, y);
     }
     public void showHpBar() {
+
         this.background.makeVisible();
         this.mainIdicator.makeVisible();
     }

@@ -1,6 +1,6 @@
 package characters;
 
-import fri.shapesge.Manager;
+import inventory.HealingSpell;
 import inventory.Item;
 import room.Room;
 import shop.Offer;
@@ -17,12 +17,14 @@ public class Merchant extends Person {
         super(TypeOfPerson.MERCHANT, currentRoom);
         super.setPosition(positionX, positionY);
         this.offer = new HashMap<>();
+        this.offer.put(new HealingSpell(), 2.4);
         this.positionX = positionX;
         this.positionY = positionY;
     }
 
     public HashMap<Item, Double> getOffer() {
         var offerSlots = new Offer(this.offer, this.bank);
+        offerSlots.drawOfferOnScreen();
         return this.offer;
     }
 

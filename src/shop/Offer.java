@@ -31,6 +31,7 @@ public class Offer {
         }
     }
 
+
     private void calculateOffer() {
         for (Item warehouseSlot : this.warehouse.keySet()) {
             if (this.warehouse.get(warehouseSlot) <= this.bank) {
@@ -44,13 +45,15 @@ public class Offer {
         int posX = this.positionX;
         int posY = this.positionY;
 
-        for (int row = 0; row < this.numberOfRows; row++) {
-            for (Item warehouseSlot : this.offer.keySet()) {
-                Tile slot = new Tile();
-                slot.setPicture(TileType.INVENTORY_SLOT.getID());
-                slot.setOccupied(true);
-                slot.setTilePosition(posX, posY);
-            }
+        for (int columns = 0; columns < this.numberOfColumns; columns++) {
+            Tile slot = new Tile();
+            slot.setPicture(TileType.INVENTORY_SLOT.getID());
+            slot.setOccupied(true);
+            slot.setTilePosition(posX, posY);
+            posX += this.lengthOfTile;
         }
+        posY += this.lengthOfTile;
+        posX = this.positionX;
     }
 }
+

@@ -64,6 +64,12 @@ public class Player extends Person implements Actions {
             }
         }
     }
+
+    public void buyItem(int x, int y) {
+        int clickedX = (x - this.getCurrentRoom().getPositionX()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
+        int clickedY = (y - this.getCurrentRoom().getPositionY()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
+
+    }
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);

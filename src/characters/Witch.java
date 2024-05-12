@@ -23,11 +23,31 @@ public class Witch extends Person implements Actions {
     //TODO skraslit vetvy ifov
     public void tick() {
         if (this.target.getPositionX()  == super.getPositionX()) {
+            Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, this.target);
+
+            if (this.target.getPositionY() < super.getPositionY()) {
+                projectile.setPosition(super.getPositionX(), super.getPositionY() - 1);
+            }
+            if (this.target.getPositionY() > super.getPositionY()) {
+                projectile.setPosition(super.getPositionX(), super.getPositionY() + 1);
+            }
+            this.firedProjectiles.add(projectile);
+
 
         } else if (this.target.getPositionY() == super.getPositionY()) {
 
+            Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, this.target);
+
+            if (this.target.getPositionX() < super.getPositionX()) {
+                projectile.setPosition(super.getPositionX() - 1, super.getPositionY());
+            }
+            if (this.target.getPositionX() > super.getPositionX()) {
+                projectile.setPosition(super.getPositionX() + 1, super.getPositionY());
+            }
+            this.firedProjectiles.add(projectile);
         }
     }
+
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);

@@ -17,7 +17,7 @@ public abstract class Person {
         this.numberOfFrames = type.getNumberOfFrames();
         this.image = new Image(String.format("images/characters/%s/%s_0.png", this.type.getName(), this.type.getName()));
         this.image.makeVisible();
-        this.hpBar = new HpBar();
+        this.hpBar = new HpBar(type.getBaseHp());
     }
 
     public void moveImage(int x, int y) {
