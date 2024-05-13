@@ -17,7 +17,7 @@ public class Door {
         int clickedX = (x - 45) / 90;
         int clickedY = (y - 45) / 90;
 
-        if (this.positionX <= clickedX && clickedX <= this.positionX + 90 && this.positionY <= clickedY && clickedY <= this.positionY) {
+        if (this.positionX == clickedX && this.positionY == clickedY) {
             System.out.println("otvorene");
         }
     }

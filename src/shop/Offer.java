@@ -3,6 +3,7 @@ package shop;
 import inventory.InventorySlot;
 import inventory.Item;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -63,15 +64,15 @@ public class Offer {
             posY += this.lengthOfTile;
             posX = this.positionX;
         }
-        System.out.println(this.offer);
         posX = this.positionX;
         posY = this.positionY;
         int row = 0;
 
         for (int i = 0; i < this.offer.size(); i++) {
             if (i < this.slots[row].length - 1) {
+                this.offer.get(i).setPosition(posX, posY);
+                this.offer.get(i).showItem();
                 this.slots[row][i].addItem(this.offer.get(i));
-                this.slots[row][i].getItem().get().setPosition(posX, posY);
                 posX += this.lengthOfTile;
             } else {
                 row += 1;
@@ -82,11 +83,14 @@ public class Offer {
     }
 
     private void hideOffer() {
+        this.offer = new ArrayList<>();
         for (int rows = 0; rows < this.numberOfRows; rows++) {
             for (int columns = 0; columns < this.numberOfColumns; columns++) {
-                this.slots[rows][columns].deleteItem();
+                if (this.slots[rows][columns].getItem().isPresent()) {
+                    var item = this.slots[rows][columns].getItem().get();
+                    item.hideItem();
+                }
                 this.slots[rows][columns].hide();
-                this.slots[rows][columns] = new InventorySlot();
             }
         }
     }

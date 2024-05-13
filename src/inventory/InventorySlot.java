@@ -17,7 +17,6 @@ public class InventorySlot {
         this.countOfItem = 0;
         this.image = new Image("images/inventorySlots/inventorySlot.png");
     }
-
     public void hide() {
         this.image.makeInvisible();
     }
@@ -34,18 +33,9 @@ public class InventorySlot {
         this.countOfItem += 1;
         this.item = Optional.of(item);
     }
-
     public Optional<Item> getItem() {
-        if (this.countOfItem > 0) {
-            this.countOfItem -= 1;
-            return this.item;
-        } else {
-            this.countOfItem = 0;
-            this.item = Optional.empty();
-            return this.item;
-        }
+        return this.item;
     }
-
     public int getPositionX() {
         return this.positionX;
     }

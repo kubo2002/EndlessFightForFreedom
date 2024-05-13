@@ -23,7 +23,7 @@ public class Room {
                 this.tiles[row][column] = new Tile();
                 this.tiles[row][column].setPicture(matrixOfMap[row][column]);
                 if (this.tiles[row][column].areDoors()) {
-                    this.door = new Door(this.tiles[row][column].getPositionX(), this.tiles[row][column].getPositionY());
+                    this.door = new Door(column, row);
                 }
                 this.tiles[row][column].setTilePosition(posX, posY);
                 posX += this.tiles[row][column].getLengthOfTile();
