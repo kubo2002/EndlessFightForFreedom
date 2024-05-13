@@ -1,6 +1,7 @@
 package characters;
 import fri.shapesge.Image;
 import room.Room;
+import room.Tile;
 
 public abstract class Person {
     private Room currentRoom;
@@ -38,6 +39,9 @@ public abstract class Person {
     public void changeOccupiedPosition(int x , int y, boolean occupied) {
         this.currentRoom.getAllTiles()[x][y].setOccupied(occupied);
     }
+    public Tile getCurrentTile() {
+        return this.currentRoom.getAllTiles()[this.positionY][this.positionX];
+    }
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
@@ -53,7 +57,6 @@ public abstract class Person {
     public void setPositionX(int positionX) {
         this.positionX = positionX;
     }
-
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }

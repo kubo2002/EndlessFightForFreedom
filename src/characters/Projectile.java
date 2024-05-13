@@ -13,55 +13,56 @@ public class Projectile implements Projectiles {
     private Manager manager;
     private Actions person;
     private Actions target;
-
+    private boolean state;
     public Projectile(TypeOfProjectile type, Actions person, Actions target) {
         this.person = person;
         this.target = target;
-        this.destinationX = target.getPositionX();
-        this.destinationY = target.getPositionY();
+        this.destinationX = target.getPositionX() * 90 + 45;
+        this.destinationY = target.getPositionY() * 90 + 45;
         this.type = type;
         this.image = new Image(String.format("images/projectiles/%s.png", type.getPath()));
         this.manager = new Manager();
         this.manager.manageObject(this);
-        this.moveProjectile(this.destinationX, this.destinationY);
     }
     @Override
-    public void moveProjectile(int destX, int destY) {
-        if (this.positionX < destX) {
-            this.positionX += 1;
-            System.out.println(this.positionX);
-            //this.image.moveHorizontal(90);
-        } else if (this.positionX > destX) {
-            this.positionX -= 1;
-            //this.image.moveHorizontal(-90);
-        } else if (this.positionY < destY) {
-            this.positionY -= 1;
-           //this.image.moveVertical(-90);
-        } else if (this.positionY > destY) {
-            this.positionY += 1;
-            //this.image.moveVertical(90);
+    public void moveProjectile() {
+        if (this.positionX < this.destinationX) {
+            this.image.moveHorizontal(this.type.getSpeed());
+            this.positionX += this.type.getSpeed();
         }
-        if (this.positionX == destX || this.positionY == destY) {
+        if (this.positionX > this.destinationX) {
+            this.image.moveHorizontal(-this.type.getSpeed());
+            this.positionX -= this.type.getSpeed();
+        }
+        if (this.positionY < this.destinationY) {
+            this.image.moveVertical(this.type.getSpeed());
+            this.positionY += this.type.getSpeed();
+        }
+        if (this.positionY > this.destinationY) {
+            this.image.moveVertical(-this.type.getSpeed());
+            this.positionY -= this.type.getSpeed();
+        }
+        if (this.state && this.positionX == this.destinationX && this.positionY == this.destinationY
+                && (this.destinationX - 45) / 90 == this.target.getPositionX() && (this.destinationY - 45) / 90 == this.target.getPositionY()) {
             this.person.performAttack(this.target);
+            this.state = false;
+            this.image.makeInvisible();
         }
-
     }
     public void setPosition(int x, int y) {
-        this.positionX = x;
-        this.positionY = y;
-        this.image.changePosition(x * 90 + 45, y * 90 + 45);
-        this.showProjectile();
-    }
-    private void showProjectile() {
+        this.state = true;
+        this.positionX = x * 90 + 45;
+        this.positionY = y * 90 + 45;
+        this.image.changePosition(this.positionX, this.positionY);
         this.image.makeVisible();
     }
-    public void hideProjectile() {
-        this.image.makeInvisible();
-    }
     public int getPositionX() {
-        return this.positionX;
+        return (this.positionX - 45) / 90;
     }
     public int getPositionY() {
-        return this.positionY;
+        return (this.positionY - 45) / 90;
+    }
+    public boolean getState() {
+        return this.state;
     }
 }

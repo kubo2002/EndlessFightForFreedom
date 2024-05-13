@@ -18,6 +18,7 @@ public class Witch extends Person implements Actions {
         this.damage = TypeOfPerson.WITCH.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
+        this.deleteProjectiles();
     }
 
     //TODO skraslit vetvy ifov
@@ -31,6 +32,7 @@ public class Witch extends Person implements Actions {
             if (this.target.getPositionY() > super.getPositionY()) {
                 projectile.setPosition(super.getPositionX(), super.getPositionY() + 1);
             }
+            projectile.moveProjectile();
             this.firedProjectiles.add(projectile);
 
 
@@ -44,10 +46,20 @@ public class Witch extends Person implements Actions {
             if (this.target.getPositionX() > super.getPositionX()) {
                 projectile.setPosition(super.getPositionX() + 1, super.getPositionY());
             }
+            projectile.moveProjectile();
             this.firedProjectiles.add(projectile);
         }
     }
 
+    public void deleteProjectiles() {
+        for (int i = 0; i < this.firedProjectiles.size(); i++) {
+            if (!this.firedProjectiles.get(i).getState()) {
+                var projectile = this.firedProjectiles.get(i);
+                projectile = null;
+                this.firedProjectiles.remove(projectile);
+            }
+        }
+    }
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);

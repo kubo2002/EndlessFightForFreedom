@@ -67,6 +67,7 @@ public class Offer {
         posX = this.positionX;
         posY = this.positionY;
         int row = 0;
+
         for (int i = 0; i < this.offer.size(); i++) {
             if (i < this.slots[row].length - 1) {
                 this.slots[row][i].addItem(this.offer.get(i));
