@@ -6,6 +6,7 @@ import characters.Witch;
 import java.util.List;
 
 public class Battleground extends Room {
+    //TODO volat v atribute hraca vytvoreneho v nadtriede napr RoomManager
     public Battleground() {
         super(TypeOfRoom.BATTLEGROUND);
 

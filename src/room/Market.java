@@ -6,6 +6,7 @@ import characters.Player;
 import java.util.List;
 
 public class Market extends Room {
+    //TODO volat v atribute hraca vytvoreneho v nadtriede napr RoomManager
     private Merchant merchant;
     public Market() {
         super(TypeOfRoom.MARKET);

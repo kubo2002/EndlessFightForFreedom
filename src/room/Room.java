@@ -1,6 +1,6 @@
 package room;
 
-public class Room {
+public abstract class Room {
     private RoomGenerator map;
     private final int positionX = 50;
     private final int positionY = 50;
@@ -13,6 +13,7 @@ public class Room {
         this.tiles = new Tile[roomType.getNumberOfTilesX()][roomType.getNumberOfTilesY()];
     }
 
+    public abstract void spawnCharacters();
     public void showMap() {
         int[][] matrixOfMap = this.map.createMap();
         int posX = this.positionX;

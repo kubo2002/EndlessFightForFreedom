@@ -4,10 +4,12 @@ import fri.shapesge.Manager;
 import inventory.Inventory;
 import room.Market;
 import room.Room;
+import room.ScoreBoard;
 
 public class Player extends Person implements Actions {
     private Manager manager;
     private Inventory inventory;
+    private ScoreBoard score;
     private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
     public Player(int positionX, int positionY, Room currentRoom) {
@@ -17,6 +19,8 @@ public class Player extends Person implements Actions {
         this.manager = new Manager();
         this.manager.manageObject(this);
         this.inventory = new Inventory();
+        this.score = new ScoreBoard(0, 50);
+        this.score.showScoreOnScreen(true);
     }
 
     //TODO ak vyjde cas urobit shield
@@ -100,7 +104,7 @@ public class Player extends Person implements Actions {
             var market = (Market)super.getCurrentRoom();
             var merchant = market.getMerchant();
             if (clickedX == merchant.getPositionX() && clickedY == merchant.getPositionY()) {
-                merchant.setPlayersBank(50);
+                merchant.setPlayersBank(this.score.getBank());
                 merchant.getOffer();
             }
         }
