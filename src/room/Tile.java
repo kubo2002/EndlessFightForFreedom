@@ -12,6 +12,7 @@ public class Tile {
     private boolean isOccupied;
     private Tile precursor;
     private ArrayList<Tile> surroundings;
+    private boolean areDoors;
     public Tile() {
         this.surroundings = new ArrayList<>();
     }
@@ -36,6 +37,7 @@ public class Tile {
             case 6:
                 this.image = new Image(TileType.DOORS.getPath());
                 this.isOccupied = TileType.DOORS.isOccupied();
+                this.areDoors = true;
                 break;
         }
     }
@@ -75,5 +77,8 @@ public class Tile {
 
     public ArrayList<Tile> getSurroundings() {
         return this.surroundings;
+    }
+    public boolean areDoors() {
+        return this.areDoors;
     }
 }

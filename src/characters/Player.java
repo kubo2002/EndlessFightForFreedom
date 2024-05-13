@@ -19,6 +19,44 @@ public class Player extends Person implements Actions {
         this.inventory = new Inventory();
     }
 
+    //TODO ak vyjde cas urobit shield
+    private void setShield(int radius, boolean isOn) { // pocet kociek okolo hraca ktore nebudu priechodne
+
+        super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), isOn);// nastavi na bool policko na ktorom stoji hrac
+
+        int numberOfTiles = (int)(radius * Math.pow(2, 3));
+
+        int startingX = super.getPositionX() - radius;
+        int startingY = super.getPositionY() + radius;
+
+        if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
+            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), isOn);
+        }
+
+        for (int i = 1; i < numberOfTiles; i++) {
+            if (i < (numberOfTiles / 4) + 1) {
+                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
+                    super.changeOccupiedPosition(startingX, startingY, isOn);
+                }
+                startingY -= 1;
+            } else if (i == (numberOfTiles / 4) + 1) {
+                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
+                    super.changeOccupiedPosition(startingX, startingY, isOn);
+                }
+                startingX += 1;
+            } else if (i == ((numberOfTiles / 4) + 1) * 2) {
+                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
+                    super.changeOccupiedPosition(startingX, startingY, isOn);
+                }
+                startingY += 1;
+            } else if (i == ((numberOfTiles / 4) + 1) * 3) {
+                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
+                    super.changeOccupiedPosition(startingX, startingY, isOn);
+                }
+                startingX += 1;
+            }
+        }
+    }
     public void moveUp() {
         if (super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
@@ -33,6 +71,7 @@ public class Player extends Person implements Actions {
             super.moveImage(0, 90);
             super.setPositionY(super.getPositionY() + 1);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
+
         }
     }
     public void moveLeft() {
@@ -49,6 +88,7 @@ public class Player extends Person implements Actions {
             super.moveImage(90, 0);
             super.setPositionX(super.getPositionX() + 1);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
+
         }
     }
 

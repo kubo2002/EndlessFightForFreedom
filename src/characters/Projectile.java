@@ -29,17 +29,36 @@ public class Projectile implements Projectiles {
         if (this.positionX < this.destinationX) {
             this.image.moveHorizontal(this.type.getSpeed());
             this.positionX += this.type.getSpeed();
+            if (this.areCollided()) {
+                this.person.performAttack(this.target);
+                this.state = false;
+                this.image.makeInvisible();
+            }
         } else if (this.positionX > this.destinationX) {
             this.image.moveHorizontal(-this.type.getSpeed());
             this.positionX -= this.type.getSpeed();
+            if (this.areCollided()) {
+                this.person.performAttack(this.target);
+                this.state = false;
+                this.image.makeInvisible();
+            }
         } else if (this.positionY < this.destinationY) {
             this.image.moveVertical(this.type.getSpeed());
             this.positionY += this.type.getSpeed();
+            if (this.areCollided()) {
+                this.person.performAttack(this.target);
+                this.state = false;
+                this.image.makeInvisible();
+            }
         } else if (this.positionY > this.destinationY) {
             this.image.moveVertical(-this.type.getSpeed());
             this.positionY -= this.type.getSpeed();
-        } else if (this.state && this.positionX == this.destinationX && this.positionY == this.destinationY
-                && (this.destinationX - 45) / 90 == this.target.getPositionX() && (this.destinationY - 45) / 90 == this.target.getPositionY()) {
+            if (this.areCollided()) {
+                this.person.performAttack(this.target);
+                this.state = false;
+                this.image.makeInvisible();
+            }
+        } else if (this.state && (this.destinationX - 45) / 90 == this.target.getPositionX() && (this.destinationY - 45) / 90 == this.target.getPositionY()) {
             this.person.performAttack(this.target);
             this.state = false;
             this.image.makeInvisible();
@@ -47,6 +66,9 @@ public class Projectile implements Projectiles {
             this.state = false;
             this.image.makeInvisible();
         }
+    }
+    private boolean areCollided() {
+        return this.positionX == this.target.getPositionX() && this.positionY == this.target.getPositionY();
     }
     public void setPosition(int x, int y) {
         this.state = true;

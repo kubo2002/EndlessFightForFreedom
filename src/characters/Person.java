@@ -37,7 +37,7 @@ public abstract class Person {
         this.hpBar.showHpBar();
     }
     public void changeOccupiedPosition(int x , int y, boolean occupied) {
-        this.currentRoom.getAllTiles()[x][y].setOccupied(occupied);
+        this.currentRoom.getAllTiles()[y][x].setOccupied(occupied);
     }
     public Tile getCurrentTile() {
         return this.currentRoom.getAllTiles()[this.positionY][this.positionX];
@@ -54,14 +54,17 @@ public abstract class Person {
     public int getPositionY() {
         return this.positionY;
     }
+    public TypeOfPerson getType() {
+        return this.type;
+    }
+    public HpBar getHpBar() {
+        return this.hpBar;
+    }
     public void setPositionX(int positionX) {
         this.positionX = positionX;
     }
     public void setPositionY(int positionY) {
         this.positionY = positionY;
-    }
-    public HpBar getHpBar() {
-        return this.hpBar;
     }
 
 }

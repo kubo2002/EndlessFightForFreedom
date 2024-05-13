@@ -6,6 +6,7 @@ public class Room {
     private final int positionY = 50;
     private TypeOfRoom roomType;
     private Tile[][] tiles;
+    private Door door;
     public Room(TypeOfRoom roomType) {
         this.roomType = roomType;
         this.map = new RoomGenerator(roomType.getNumberOfTilesX(), roomType.getNumberOfTilesY());
@@ -21,6 +22,9 @@ public class Room {
             for (int column = 0; column < matrixOfMap[row].length; column++) {
                 this.tiles[row][column] = new Tile();
                 this.tiles[row][column].setPicture(matrixOfMap[row][column]);
+                if (this.tiles[row][column].areDoors()) {
+                    this.door = new Door(this.tiles[row][column].getPositionX(), this.tiles[row][column].getPositionY());
+                }
                 this.tiles[row][column].setTilePosition(posX, posY);
                 posX += this.tiles[row][column].getLengthOfTile();
             }
@@ -55,7 +59,7 @@ public class Room {
     }
 
     public boolean isAbleToMove(int x, int y) {
-        return !this.tiles[x][y].isOccupied();
+        return !this.tiles[y][x].isOccupied();
     }
     public Tile[][] getAllTiles() {
         return this.tiles;
@@ -70,9 +74,6 @@ public class Room {
     }
     public RoomGenerator getMap() {
         return this.map;
-    }
-    public TypeOfRoom getRoomType() {
-        return this.roomType;
     }
 
 }
