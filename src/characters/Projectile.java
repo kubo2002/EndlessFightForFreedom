@@ -29,22 +29,21 @@ public class Projectile implements Projectiles {
         if (this.positionX < this.destinationX) {
             this.image.moveHorizontal(this.type.getSpeed());
             this.positionX += this.type.getSpeed();
-        }
-        if (this.positionX > this.destinationX) {
+        } else if (this.positionX > this.destinationX) {
             this.image.moveHorizontal(-this.type.getSpeed());
             this.positionX -= this.type.getSpeed();
-        }
-        if (this.positionY < this.destinationY) {
+        } else if (this.positionY < this.destinationY) {
             this.image.moveVertical(this.type.getSpeed());
             this.positionY += this.type.getSpeed();
-        }
-        if (this.positionY > this.destinationY) {
+        } else if (this.positionY > this.destinationY) {
             this.image.moveVertical(-this.type.getSpeed());
             this.positionY -= this.type.getSpeed();
-        }
-        if (this.state && this.positionX == this.destinationX && this.positionY == this.destinationY
+        } else if (this.state && this.positionX == this.destinationX && this.positionY == this.destinationY
                 && (this.destinationX - 45) / 90 == this.target.getPositionX() && (this.destinationY - 45) / 90 == this.target.getPositionY()) {
             this.person.performAttack(this.target);
+            this.state = false;
+            this.image.makeInvisible();
+        } else {
             this.state = false;
             this.image.makeInvisible();
         }
