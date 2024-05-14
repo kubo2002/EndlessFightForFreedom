@@ -1,6 +1,8 @@
 package room;
 
 
+import characters.Player;
+
 public class Temple extends Room {
     //TODO volat v atribute hraca vytvoreneho v nadtriede napr RoomManager
     public Temple(RoomManager roomManager) {
@@ -8,8 +10,8 @@ public class Temple extends Room {
     }
     @Override
     public void spawnCharacters() {
-        var player = super.getPlayer();
-        player.respawn();
+        var player = Player.getInstance(1, 1, this);
+
     }
 
 

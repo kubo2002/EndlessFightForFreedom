@@ -3,7 +3,8 @@ package characters;
 public enum TypeOfPerson {
     KNIGHT("knight", 2, 2.5, 50, 90),
     MERCHANT("merchant", 2, 0, 999, 0),
-    WITCH("witch", 2, 3, 40, 90);
+    WITCH("witch", 2, 3, 40, 90),
+    SKELETON("skeleton", 2, 1, 50, 90);
     private final String name;
     private final int numberOfFrames;
     private final double baseDamage;

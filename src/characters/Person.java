@@ -7,7 +7,6 @@ public abstract class Person {
     private Room currentRoom;
     private TypeOfPerson type;
     private int numberOfFrames;
-    private int currentFarme;
     private Image image;
     private int positionX;
     private int positionY;
@@ -37,6 +36,7 @@ public abstract class Person {
         this.hpBar.setPositionX(this.positionX);
         this.hpBar.setPositionY(this.positionY);
         this.hpBar.showHpBar();
+        this.image.makeVisible();
     }
     public void changeOccupiedPosition(int x , int y, boolean occupied) {
         this.currentRoom.getAllTiles()[y][x].setOccupied(occupied);

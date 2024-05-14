@@ -12,8 +12,7 @@ public class Market extends Room {
     }
 
     public void spawnCharacters() {
-        var player = super.getPlayer();
-
+        var player = Player.getInstance(1, 1, this);
         this.merchant = new Merchant(2, 2, this);
     }
 

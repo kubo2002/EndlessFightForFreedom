@@ -14,7 +14,8 @@ public class Player extends Person implements Actions {
     private int positionY;
     private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
-    public Player(int positionX, int positionY, Room currentRoom) {
+    private static Player player;
+    private Player(int positionX, int positionY, Room currentRoom) {
         super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
         this.positionX = positionX;
@@ -28,47 +29,16 @@ public class Player extends Person implements Actions {
         this.score.showScoreOnScreen(true);
     }
 
+    public static Player getInstance(int positionX, int positionY, Room currentRoom) {
+        if (player == null) {
+            player = new Player(positionX, positionY, currentRoom);
+        }
+        return player;
+    }
     public void respawn() {
         super.setPosition(this.positionX, this.positionY);
     }
-    //TODO ak vyjde cas urobit shield
-    private void setShield(int radius, boolean isOn) { // pocet kociek okolo hraca ktore nebudu priechodne
 
-        super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), isOn);// nastavi na bool policko na ktorom stoji hrac
-
-        int numberOfTiles = (int)(radius * Math.pow(2, 3));
-
-        int startingX = super.getPositionX() - radius;
-        int startingY = super.getPositionY() + radius;
-
-        if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), isOn);
-        }
-
-        for (int i = 1; i < numberOfTiles; i++) {
-            if (i < (numberOfTiles / 4) + 1) {
-                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
-                    super.changeOccupiedPosition(startingX, startingY, isOn);
-                }
-                startingY -= 1;
-            } else if (i == (numberOfTiles / 4) + 1) {
-                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
-                    super.changeOccupiedPosition(startingX, startingY, isOn);
-                }
-                startingX += 1;
-            } else if (i == ((numberOfTiles / 4) + 1) * 2) {
-                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
-                    super.changeOccupiedPosition(startingX, startingY, isOn);
-                }
-                startingY += 1;
-            } else if (i == ((numberOfTiles / 4) + 1) * 3) {
-                if (!super.getCurrentRoom().getAllTiles()[startingY][startingX].isOccupied()) {
-                    super.changeOccupiedPosition(startingX, startingY, isOn);
-                }
-                startingX += 1;
-            }
-        }
-    }
     public void moveUp() {
         if (super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);

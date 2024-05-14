@@ -1,6 +1,7 @@
 package room;
 
 
+import characters.Player;
 import characters.Witch;
 
 public class Battleground extends Room {
@@ -11,7 +12,7 @@ public class Battleground extends Room {
     public void spawnCharacters() {
         var player = super.getPlayer();
         player.respawn();
-        //TODO dat si pozor aby sa nespawnovali na seba
+
         Witch witch = new Witch(5, 5, this, super.getPlayer());
         witch.move();
     }
