@@ -10,19 +10,27 @@ public class Player extends Person implements Actions {
     private Manager manager;
     private Inventory inventory;
     private ScoreBoard score;
+    private int positionX;
+    private int positionY;
     private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
     public Player(int positionX, int positionY, Room currentRoom) {
         super(TypeOfPerson.KNIGHT, currentRoom);
         super.setPosition(positionX, positionY);
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
         this.inventory = new Inventory();
+        this.inventory.drawInventoryOnScreen();
         this.score = new ScoreBoard(0, 50);
         this.score.showScoreOnScreen(true);
     }
 
+    public void respawn() {
+        super.setPosition(this.positionX, this.positionY);
+    }
     //TODO ak vyjde cas urobit shield
     private void setShield(int radius, boolean isOn) { // pocet kociek okolo hraca ktore nebudu priechodne
 

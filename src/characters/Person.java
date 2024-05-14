@@ -12,7 +12,9 @@ public abstract class Person {
     private int positionX;
     private int positionY;
     private HpBar hpBar;
+    private boolean state;
     public Person(TypeOfPerson type, Room currentRoom) {
+        this.state = true;
         this.currentRoom = currentRoom;
         this.type = type;
         this.numberOfFrames = type.getNumberOfFrames();
@@ -65,6 +67,21 @@ public abstract class Person {
     }
     public void setPositionY(int positionY) {
         this.positionY = positionY;
+    }
+    public boolean getState() {
+        return this.state;
+    }
+    public void setState(boolean state) {
+        this.state = state;
+    }
+    public void hide() {
+        this.image.makeInvisible();
+    }
+    public void show() {
+        this.image.makeVisible();
+    }
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
 }

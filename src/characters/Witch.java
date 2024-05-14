@@ -5,12 +5,11 @@ import room.Room;
 
 import java.util.ArrayList;
 
-public class Witch extends Person implements Actions {
+public class Witch extends Person implements Actions, Enemy {
     private Manager manager;
     private double damage;
     private ArrayList<Projectile> firedProjectiles;
     private Player target;
-    private boolean state;
 
     public Witch(int positionX, int positionY, Room currentRoom, Player target) {
         super(TypeOfPerson.WITCH, currentRoom);
@@ -20,13 +19,12 @@ public class Witch extends Person implements Actions {
         this.damage = TypeOfPerson.WITCH.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
-        this.state = true;
         this.deleteProjectiles();
     }
 
     //TODO skraslit vetvy ifov
     public void tick() {
-        if (this.state) {
+        if (super.getState()) {
             if (this.target.getPositionX() == super.getPositionX()) {
                 if (this.firedProjectiles.size() < 5) {
                     Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, this.target);
@@ -57,7 +55,7 @@ public class Witch extends Person implements Actions {
 
     public void move() {
         this.tick();
-        if (this.state) {
+        if (super.getState()) {
             if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(this.getType().getSpeed(), 0);
@@ -103,7 +101,7 @@ public class Witch extends Person implements Actions {
     }
 
     public void deleteProjectiles() {
-        if (this.state) {
+        if (super.getState()) {
             for (int i = 0; i < this.firedProjectiles.size(); i++) {
                 if (!this.firedProjectiles.get(i).getState()) {
                     var projectile = this.firedProjectiles.get(i);

@@ -18,7 +18,6 @@ public class Offer {
     private final int positionX = 1220;
     private final int positionY = 400;
     private boolean isVisible;
-
     public Offer(HashMap<Item, Double> warehouse) {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];
         this.warehouse = warehouse;
@@ -28,6 +27,7 @@ public class Offer {
         for (int row = 0; row < this.numberOfRows; row++) {
             for (int column = 0; column < this.numberOfColumns; column++) {
                 this.slots[row][column] = new InventorySlot();
+                this.slots[row][column].isInventory(false);
             }
         }
     }

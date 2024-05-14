@@ -17,6 +17,7 @@ public class Inventory {
         for (int row = 0; row < this.numberOfRows; row++) {
             for (int column = 0; column < this.numberOfColumns; column++) {
                 this.slots[row][column] = new InventorySlot();
+                this.slots[row][column].isInventory(true);
             }
         }
 

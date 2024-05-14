@@ -1,5 +1,11 @@
 package room;
 
+import characters.Enemy;
+import characters.Person;
+import characters.Player;
+
+import java.util.ArrayList;
+
 public abstract class Room {
     private RoomGenerator map;
     private final int positionX = 50;
@@ -7,10 +13,15 @@ public abstract class Room {
     private TypeOfRoom roomType;
     private Tile[][] tiles;
     private Door door;
-    public Room(TypeOfRoom roomType) {
+    private RoomManager roomManager;
+    private Player player;
+    private ArrayList<Enemy> livingEnemies;
+    public Room(TypeOfRoom roomType, RoomManager roomManager) {
+        this.roomManager = roomManager;
         this.roomType = roomType;
         this.map = new RoomGenerator(roomType.getNumberOfTilesX(), roomType.getNumberOfTilesY());
         this.tiles = new Tile[roomType.getNumberOfTilesX()][roomType.getNumberOfTilesY()];
+        this.livingEnemies = new ArrayList<>();
     }
 
     public abstract void spawnCharacters();
@@ -24,7 +35,7 @@ public abstract class Room {
                 this.tiles[row][column] = new Tile();
                 this.tiles[row][column].setPicture(matrixOfMap[row][column]);
                 if (this.tiles[row][column].areDoors()) {
-                    this.door = new Door(column, row);
+                    this.door = new Door(column, row, this.roomManager);
                 }
                 this.tiles[row][column].setTilePosition(posX, posY);
                 posX += this.tiles[row][column].getLengthOfTile();
@@ -65,16 +76,38 @@ public abstract class Room {
     public Tile[][] getAllTiles() {
         return this.tiles;
     }
-
     public int getPositionX() {
         return this.positionX;
     }
-
     public int getPositionY() {
         return this.positionY;
     }
-    public RoomGenerator getMap() {
-        return this.map;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    public Player getPlayer() {
+        return this.player;
+    }
+    public void hideMap() {
+        for (Enemy enemy : this.livingEnemies) {
+            if (enemy instanceof Person) {
+                Person e = (Person)enemy;
+                e = null;
+            }
+        }
+
+        this.tiles = new Tile[this.roomType.getNumberOfTilesX()][this.roomType.getNumberOfTilesY()];
+        this.door = null;
+
+    }
+    public void addEnemy(Enemy enemy) {
+        this.livingEnemies.add(enemy);
+    }
+    public void removeEnemy(Enemy enemy) {
+        this.livingEnemies.remove(enemy);
+    }
+    public ArrayList<Enemy> getLivingEnemies() {
+        return this.livingEnemies;
     }
 
 }

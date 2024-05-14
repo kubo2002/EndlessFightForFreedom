@@ -6,20 +6,15 @@ import characters.Player;
 import java.util.List;
 
 public class Market extends Room {
-    //TODO volat v atribute hraca vytvoreneho v nadtriede napr RoomManager
     private Merchant merchant;
-    public Market() {
-        super(TypeOfRoom.MARKET);
+    public Market(RoomManager roomManager) {
+        super(TypeOfRoom.MARKET, roomManager);
     }
 
     public void spawnCharacters() {
-        Player player = new Player(1, 1, this);
+        var player = super.getPlayer();
 
-        List<Integer> spawnMerchant = super.getMap().generatePlayerSpawn();
-        int merchantX = spawnMerchant.getFirst();
-        int merchantY = spawnMerchant.getLast();
-
-        this.merchant = new Merchant(merchantX, merchantY, this);
+        this.merchant = new Merchant(2, 2, this);
     }
 
     public Merchant getMerchant() {
