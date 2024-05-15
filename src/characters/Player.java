@@ -3,15 +3,12 @@ package characters;
 import fri.shapesge.Manager;
 import inventory.Inventory;
 import room.Market;
-import room.Room;
 import room.ScoreBoard;
 
 public class Player extends Person implements Actions {
     private Manager manager;
     private Inventory inventory;
     private ScoreBoard score;
-    private int positionX;
-    private int positionY;
     private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
     private static Player player = new Player();
@@ -20,7 +17,7 @@ public class Player extends Person implements Actions {
         this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
-        this.inventory = new Inventory();
+        this.inventory = Inventory.getInstance();
         this.inventory.drawInventoryOnScreen();
         this.score = new ScoreBoard(0, 50);
         this.score.showScoreOnScreen(true);
@@ -29,10 +26,6 @@ public class Player extends Person implements Actions {
     public static Player getInstance() {
         return player;
     }
-    public void respawn(int x, int y) {
-        super.setPosition(this.positionX, this.positionY);
-    }
-
     public void moveUp() {
         if (super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);

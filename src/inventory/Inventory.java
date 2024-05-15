@@ -10,7 +10,7 @@ public class Inventory {
     private final int positionX = 1220;
     private final int positionY = 50;
     private boolean visible;
-
+    private static final Inventory INVENTORY = new Inventory();
     private Inventory() {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];
 
@@ -21,9 +21,8 @@ public class Inventory {
             }
         }
     }
-
     public static Inventory getInstance() {
-
+        return INVENTORY;
     }
     public void addItem(Item item) {
         int counter = 0;

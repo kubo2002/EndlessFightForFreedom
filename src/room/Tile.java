@@ -74,14 +74,9 @@ public class Tile {
     public void addSurrounding(Tile tile) {
         this.surroundings.add(tile);
     }
-
-    public ArrayList<Tile> getSurroundings() {
-        return this.surroundings;
-    }
     public boolean areDoors() {
         return this.areDoors;
     }
-
     public void show() {
         this.image.makeVisible();
     }
