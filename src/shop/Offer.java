@@ -82,7 +82,7 @@ public class Offer {
         }
     }
 
-    private void hideOffer() {
+    public void hideOffer() {
         this.offer = new ArrayList<>();
         for (int rows = 0; rows < this.numberOfRows; rows++) {
             for (int columns = 0; columns < this.numberOfColumns; columns++) {

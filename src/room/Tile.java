@@ -81,4 +81,12 @@ public class Tile {
     public boolean areDoors() {
         return this.areDoors;
     }
+
+    public void show() {
+        this.image.makeVisible();
+    }
+
+    public void hide() {
+        this.image.makeInvisible();
+    }
 }

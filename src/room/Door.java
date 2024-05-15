@@ -7,9 +7,7 @@ public class Door {
     private int positionX;
     private int positionY;
     private Manager manager;
-    private RoomManager roomManager;
-    public Door(int positionX, int positionY, RoomManager roomManager) {
-        this.roomManager = roomManager;
+    public Door(int positionX, int positionY) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.manager = new Manager();
@@ -20,7 +18,8 @@ public class Door {
         int clickedY = (y - 45) / 90;
 
         if (this.positionX == clickedX && this.positionY == clickedY) {
-            this.roomManager.showDialog();
+            RoomManager roomManager = RoomManager.getInstance();
+            roomManager.showDialog();
             //TODO pridat podmienku kedy sa otvoria dvere.
         }
     }

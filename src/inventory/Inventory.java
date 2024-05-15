@@ -11,7 +11,7 @@ public class Inventory {
     private final int positionY = 50;
     private boolean visible;
 
-    public Inventory() {
+    private Inventory() {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];
 
         for (int row = 0; row < this.numberOfRows; row++) {
@@ -20,6 +20,9 @@ public class Inventory {
                 this.slots[row][column].isInventory(true);
             }
         }
+    }
+
+    public static Inventory getInstance() {
 
     }
     public void addItem(Item item) {

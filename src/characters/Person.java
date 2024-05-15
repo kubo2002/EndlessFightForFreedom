@@ -12,9 +12,8 @@ public abstract class Person {
     private int positionY;
     private HpBar hpBar;
     private boolean state;
-    public Person(TypeOfPerson type, Room currentRoom) {
+    public Person(TypeOfPerson type) {
         this.state = true;
-        this.currentRoom = currentRoom;
         this.type = type;
         this.numberOfFrames = type.getNumberOfFrames();
         this.image = new Image(String.format("images/characters/%s/%s_0.png", this.type.getName(), this.type.getName()));
@@ -75,6 +74,7 @@ public abstract class Person {
         this.state = state;
     }
     public void hide() {
+        this.hpBar.hideHpBar();
         this.image.makeInvisible();
     }
     public void show() {

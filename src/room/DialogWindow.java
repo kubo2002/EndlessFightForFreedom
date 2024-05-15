@@ -10,11 +10,16 @@ public class DialogWindow {
     private JButton battleGround;
     private JButton market;
     private JButton temple;
-    private RoomManager roomManager;
     private JFrame frame;
     private boolean isOn;
-    public DialogWindow(RoomManager roomManager) {
-        this.roomManager = roomManager;
+    private final RoomManager roomManager = RoomManager.getInstance();
+    private static final DialogWindow INSTANCE = new DialogWindow();
+    private DialogWindow() {
+
+    }
+
+    public static DialogWindow getInstance() {
+        return INSTANCE;
     }
     public void showDialogWindow () {
         this.frame = new JFrame("Choose Room");

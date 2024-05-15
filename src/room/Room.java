@@ -13,15 +13,13 @@ public abstract class Room {
     private TypeOfRoom roomType;
     private Tile[][] tiles;
     private Door door;
-    private RoomManager roomManager;
-    private Player player;
-    private ArrayList<Enemy> livingEnemies;
-    public Room(TypeOfRoom roomType, RoomManager roomManager) {
-        this.roomManager = roomManager;
+    private ArrayList<Person> spawnedCharacters;
+    public Room(TypeOfRoom roomType) {
         this.roomType = roomType;
         this.map = new RoomGenerator(roomType.getNumberOfTilesX(), roomType.getNumberOfTilesY());
         this.tiles = new Tile[roomType.getNumberOfTilesX()][roomType.getNumberOfTilesY()];
-        this.livingEnemies = new ArrayList<>();
+        this.spawnedCharacters = new ArrayList<>();
+
     }
 
     public abstract void spawnCharacters();
@@ -35,17 +33,33 @@ public abstract class Room {
                 this.tiles[row][column] = new Tile();
                 this.tiles[row][column].setPicture(matrixOfMap[row][column]);
                 if (this.tiles[row][column].areDoors()) {
-                    this.door = new Door(column, row, this.roomManager);
+                    this.door = new Door(column, row);
                 }
                 this.tiles[row][column].setTilePosition(posX, posY);
+                this.tiles[row][column].show();
                 posX += this.tiles[row][column].getLengthOfTile();
             }
             posY += this.tiles[row][0].getLengthOfTile();
             posX = this.positionX;
         }
-        this.setSurroundings();
     }
 
+    public void hideMap() {
+        for (int i = 0; i < this.spawnedCharacters.size(); i++) {
+            if (this.spawnedCharacters.get(i) instanceof Player) {
+                this.spawnedCharacters.get(i).hide();
+            } else {
+                this.spawnedCharacters.get(i).setState(false);
+            }
+        }
+        this.door = null;
+        for (Tile[] row : this.tiles) {
+            for (Tile tile : row) {
+                tile.hide();
+            }
+        }
+        this.tiles = new Tile[this.roomType.getNumberOfTilesX()][this.roomType.getNumberOfTilesY()];
+    }
     /***
      * Funguje len pre stvorcove
      *
@@ -82,32 +96,16 @@ public abstract class Room {
     public int getPositionY() {
         return this.positionY;
     }
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-    public Player getPlayer() {
-        return this.player;
-    }
-    public void hideMap() {
-        for (Enemy enemy : this.livingEnemies) {
-            if (enemy instanceof Person) {
-                Person e = (Person)enemy;
-                e = null;
-            }
-        }
-
-        this.tiles = new Tile[this.roomType.getNumberOfTilesX()][this.roomType.getNumberOfTilesY()];
-        this.door = null;
-
-    }
-    public void addEnemy(Enemy enemy) {
-        this.livingEnemies.add(enemy);
+    public void addCharacter(Person person) {
+        this.spawnedCharacters.add(person);
     }
     public void removeEnemy(Enemy enemy) {
-        this.livingEnemies.remove(enemy);
+        this.spawnedCharacters.remove(enemy);
     }
-    public ArrayList<Enemy> getLivingEnemies() {
-        return this.livingEnemies;
+    public ArrayList<Person> getSpawnedCharacters() {
+        return this.spawnedCharacters;
     }
-
+    public TypeOfRoom getRoomType() {
+        return this.roomType;
+    }
 }

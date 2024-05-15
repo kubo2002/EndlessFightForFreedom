@@ -11,9 +11,8 @@ public class Witch extends Person implements Actions, Enemy {
     private ArrayList<Projectile> firedProjectiles;
     private Player target;
 
-    public Witch(int positionX, int positionY, Room currentRoom, Player target) {
-        super(TypeOfPerson.WITCH, currentRoom);
-        super.setPosition(positionX, positionY);
+    public Witch(Player target) {
+        super(TypeOfPerson.WITCH);
         this.firedProjectiles = new ArrayList<>();
         this.target = target;
         this.damage = TypeOfPerson.WITCH.getBaseDamage();
@@ -101,16 +100,17 @@ public class Witch extends Person implements Actions, Enemy {
     }
 
     public void deleteProjectiles() {
-        if (super.getState()) {
-            for (int i = 0; i < this.firedProjectiles.size(); i++) {
-                if (!this.firedProjectiles.get(i).getState()) {
-                    var projectile = this.firedProjectiles.get(i);
-                    projectile = null;
-                    this.firedProjectiles.remove(i);
-                }
+
+        for (int i = 0; i < this.firedProjectiles.size(); i++) {
+            if (!super.getState()) {
+                var projectile = this.firedProjectiles.get(i);
+                projectile = null;
+                this.firedProjectiles.remove(i);
+            } else if (!this.firedProjectiles.get(i).getState()) {
+                var projectile = this.firedProjectiles.get(i);
+                projectile = null;
+                this.firedProjectiles.remove(i);
             }
-        } else {
-            this.firedProjectiles = null;
         }
     }
 

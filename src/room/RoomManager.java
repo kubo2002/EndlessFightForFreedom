@@ -1,42 +1,60 @@
 package room;
 
-import characters.Player;
+import characters.Person;
+import inventory.Item;
+
+import java.util.Iterator;
 
 public class RoomManager {
-    private Battleground battleground;
-    private Market market;
-    private Room temple;
-    private Room current;
-    private Player player;
-    private DialogWindow dialog;
-    public RoomManager() {
-        this.battleground = new Battleground(this);
-        this.dialog = new DialogWindow(this);
-        this.temple = new Temple(this);
-        this.temple.showMap();
-        //this.temple.setPlayer(this.player);
-        this.temple.spawnCharacters();
+    private Room current = Temple.getInstance();
+    private static final RoomManager INSTANCE = new RoomManager();
+    private RoomManager() {
+        this.current.showMap();
+        this.current.spawnCharacters();
+    }
+    public static RoomManager getInstance() {
+        return INSTANCE;
+    }
+    public void switchRoom(TypeOfRoom room) {
+        if (room != this.current.getRoomType()) {
+            this.current.hideMap();
+            if (this.current instanceof Market) {
+                var market = (Market)this.current;
+                market.getMerchant().terminateOffer();
+            }
+            if (room == TypeOfRoom.BATTLEGROUND) {
+                this.deleteCharacters();
+                this.current = Battleground.getInstance();
+                this.current.showMap();
+                this.current.spawnCharacters();
+            } else if (room == TypeOfRoom.MARKET) {
+                this.deleteCharacters();
+                this.current = Market.getInstance();
+                this.current.showMap();
+                this.current.spawnCharacters();
+            } else if (room == TypeOfRoom.TEMPLE) {
+                this.deleteCharacters();
+                this.current = Temple.getInstance();
+                this.current.showMap();
+                this.current.spawnCharacters();
+            }
+        }
     }
 
-    public void switchRoom(TypeOfRoom room) {
-        if (room == TypeOfRoom.BATTLEGROUND) {
-            System.out.println("battleGround");
-            this.temple = new Market(this);
-            this.temple.showMap();
-            //this.player.setCurrentRoom(this.current);
-            //this.current.setPlayer(this.player);
-            this.temple.spawnCharacters();
-        } else if (room == TypeOfRoom.MARKET) {
-            System.out.println("market");
-        } else if (room == TypeOfRoom.TEMPLE) {
-            System.out.println("temple");
+    private void deleteCharacters() {
+        Iterator<Person> characters = this.current.getSpawnedCharacters().iterator();
+
+        while (characters.hasNext()) {
+            Person p = characters.next();
+            characters.remove();
+            p = null;
         }
     }
 
     public void showDialog() {
-        if (!this.dialog.isOn()) {
-            this.dialog.showDialogWindow();
-            this.dialog = new DialogWindow(this);
+        DialogWindow dialog = DialogWindow.getInstance();
+        if (!dialog.isOn()) {
+            dialog.showDialogWindow();
         }
     }
 }

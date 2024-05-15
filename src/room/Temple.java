@@ -4,15 +4,21 @@ package room;
 import characters.Player;
 
 public class Temple extends Room {
-    //TODO volat v atribute hraca vytvoreneho v nadtriede napr RoomManager
-    public Temple(RoomManager roomManager) {
-        super(TypeOfRoom.TEMPLE, roomManager);
+
+    private static final Temple TEMPLE = new Temple();
+
+    private Temple() {
+        super(TypeOfRoom.TEMPLE);
+    }
+    public static Temple getInstance() {
+        return TEMPLE;
     }
     @Override
     public void spawnCharacters() {
-        var player = Player.getInstance(1, 1, this);
-
+        Player player = Player.getInstance();
+        //player.show();
+        player.setCurrentRoom(this);
+        player.setPosition(1, 1);
+        super.addCharacter(player);
     }
-
-
 }

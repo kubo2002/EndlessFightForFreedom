@@ -7,13 +7,24 @@ import java.util.List;
 
 public class Market extends Room {
     private Merchant merchant;
-    public Market(RoomManager roomManager) {
-        super(TypeOfRoom.MARKET, roomManager);
+    private static final Market MARKET = new Market();
+    private Market() {
+        super(TypeOfRoom.MARKET);
+    }
+
+    public static Market getInstance() {
+        return MARKET;
     }
 
     public void spawnCharacters() {
-        var player = Player.getInstance(1, 1, this);
-        this.merchant = new Merchant(2, 2, this);
+        Player player = Player.getInstance();
+        player.setCurrentRoom(this);
+        player.setPosition(1, 1);
+        super.addCharacter(player);
+        this.merchant = new Merchant();
+        this.merchant.setCurrentRoom(this);
+        this.merchant.setPosition(2, 2);
+        super.addCharacter(this.merchant);
     }
 
     public Merchant getMerchant() {

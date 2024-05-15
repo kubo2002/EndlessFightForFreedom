@@ -5,15 +5,25 @@ import characters.Player;
 import characters.Witch;
 
 public class Battleground extends Room {
-    public Battleground(RoomManager roomManager) {
-        super(TypeOfRoom.BATTLEGROUND, roomManager);
+    private static final Battleground BATTLEGROUND = new Battleground();
+    private Battleground() {
+        super(TypeOfRoom.BATTLEGROUND);
     }
-
+    public static Battleground getInstance() {
+        return BATTLEGROUND;
+    }
     public void spawnCharacters() {
-        var player = super.getPlayer();
-        player.respawn();
 
-        Witch witch = new Witch(5, 5, this, super.getPlayer());
+        Player player = Player.getInstance();
+        player.setCurrentRoom(this);
+        player.setPosition(1, 1);
+        super.addCharacter(player);
+
+        Witch witch = new Witch(player);
+        super.addCharacter(witch);
+        witch.setCurrentRoom(this);
+        witch.setPosition(5, 5);
         witch.move();
     }
+
 }

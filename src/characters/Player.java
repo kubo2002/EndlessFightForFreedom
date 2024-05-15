@@ -14,12 +14,9 @@ public class Player extends Person implements Actions {
     private int positionY;
     private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
-    private static Player player;
-    private Player(int positionX, int positionY, Room currentRoom) {
-        super(TypeOfPerson.KNIGHT, currentRoom);
-        super.setPosition(positionX, positionY);
-        this.positionX = positionX;
-        this.positionY = positionY;
+    private static Player player = new Player();
+    private Player() {
+        super(TypeOfPerson.KNIGHT);
         this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
@@ -29,13 +26,10 @@ public class Player extends Person implements Actions {
         this.score.showScoreOnScreen(true);
     }
 
-    public static Player getInstance(int positionX, int positionY, Room currentRoom) {
-        if (player == null) {
-            player = new Player(positionX, positionY, currentRoom);
-        }
+    public static Player getInstance() {
         return player;
     }
-    public void respawn() {
+    public void respawn(int x, int y) {
         super.setPosition(this.positionX, this.positionY);
     }
 

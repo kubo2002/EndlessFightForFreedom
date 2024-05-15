@@ -15,19 +15,20 @@ public class Merchant extends Person {
     private int positionY;
     private double bank;
 
-    public Merchant(int positionX, int positionY, Room currentRoom) {
-        super(TypeOfPerson.MERCHANT, currentRoom);
-        super.setPosition(positionX, positionY);
+    public Merchant() {
+        super(TypeOfPerson.MERCHANT);
         this.offer = new HashMap<>();
         this.offer.put(new HealingSpell(), TypeOfItem.HEAL.getCost());
-        this.positionX = positionX;
-        this.positionY = positionY;
         this.offerSlots = new Offer(this.offer);
     }
 
     public HashMap<Item, Double> getOffer() {
         this.offerSlots.offerOnScreen();
         return this.offer;
+    }
+
+    public void terminateOffer() {
+        this.offerSlots.hideOffer();
     }
 
     public void setPlayersBank(double bank) {
