@@ -1,7 +1,7 @@
 package characters;
 
 import fri.shapesge.Manager;
-import inventory.Inventory;
+import inventory.*;
 import room.Market;
 import room.ScoreBoard;
 
@@ -75,10 +75,15 @@ public class Player extends Person implements Actions {
         }
     }
 
-    public void buyItem(int x, int y) {
-        int clickedX = (x - this.getCurrentRoom().getPositionX()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
-        int clickedY = (y - this.getCurrentRoom().getPositionY()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
-
+    public void buyItem(Item item) {
+        this.score.subtractCoins(item.getCost());
+    }
+    public void useItem(Item item) {
+        if (item instanceof Spell) {
+            super.getHpBar().heal(item.getPower());
+        } else if (item instanceof Weapon) {
+            this.damage = item.getPower();
+        }
     }
     @Override
     public void performAttack(Actions person) {

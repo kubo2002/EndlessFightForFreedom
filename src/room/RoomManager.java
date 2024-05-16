@@ -46,6 +46,7 @@ public class RoomManager {
 
         while (characters.hasNext()) {
             Person p = characters.next();
+            p.hide();
             characters.remove();
             p = null;
         }

@@ -35,11 +35,11 @@ public class ScoreBoard {
     }
     public void subtractCoins(double coins) {
         this.bank -= coins;
-        this.totalCoins.changeText(String.format("Total coins in a pocket : %d", this.bank));
+        this.totalCoins.changeText(String.format("Total coins in a pocket : %.2f", this.bank));
     }
     public void addCoins(double bank) {
         this.bank += bank;
-        this.totalCoins.changeText(String.format("Total coins in a pocket : %d", this.bank));
+        this.totalCoins.changeText(String.format("Total coins in a pocket : %.2f", this.bank));
     }
     public void addScore() {
         this.score += 1;

@@ -4,8 +4,10 @@ public abstract class Item {
     private int positionX;
     private int positionY;
     private Image image;
+    private TypeOfItem type;
     public Item(TypeOfItem type) {
         this.image = new Image(String.format("images/items/%s/%s.png", type.getCategory(), type.getPath()));
+        this.type = type;
     }
     public abstract void addToInventory();
     public void setPosition(int x, int y) {
@@ -24,5 +26,11 @@ public abstract class Item {
     }
     public int getPositionY() {
         return this.positionY;
+    }
+    public double getPower() {
+        return this.type.getPower();
+    }
+    public double getCost() {
+        return this.type.getCost();
     }
 }

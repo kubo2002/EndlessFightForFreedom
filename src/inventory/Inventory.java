@@ -26,14 +26,19 @@ public class Inventory {
     }
     public void addItem(Item item) {
         int counter = 0;
-
+        boolean itemPlaced = false;
         for (int row = 0; row < this.numberOfRows; row++) {
             for (int column = 0; column < this.numberOfColumns; column++) {
                 if (this.slots[row][column].getItem().isEmpty()) {
                     this.slots[row][column].addItem(item);
+                    itemPlaced = true;
+                    break;
                 } else {
                     counter += 1;
                 }
+            }
+            if (itemPlaced) {
+                break;
             }
         }
 
