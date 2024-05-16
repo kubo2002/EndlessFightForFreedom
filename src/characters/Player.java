@@ -3,6 +3,7 @@ package characters;
 import fri.shapesge.Manager;
 import inventory.*;
 import room.Market;
+import room.RoomManager;
 import room.ScoreBoard;
 
 public class Player extends Person implements Actions {
@@ -74,7 +75,6 @@ public class Player extends Person implements Actions {
             }
         }
     }
-
     public void buyItem(Item item) {
         this.score.subtractCoins(item.getCost());
     }
@@ -84,6 +84,12 @@ public class Player extends Person implements Actions {
         } else if (item instanceof Weapon) {
             this.damage = item.getPower();
         }
+    }
+    public void checkTarget(int x, int y) {
+        int clickedX = (x - 45) / 90;
+        int clickedY = (y - 45) / 90;
+
+        //TODO podmineka kde pozerat ci na priliehajucej kachlicke je nenemak a hitnut ho.
     }
     @Override
     public void performAttack(Actions person) {

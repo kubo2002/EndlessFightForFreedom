@@ -42,6 +42,7 @@ public abstract class Room {
             posY += this.tiles[row][0].getLengthOfTile();
             posX = this.positionX;
         }
+        this.setSurroundings();
     }
 
     public void hideMap() {
