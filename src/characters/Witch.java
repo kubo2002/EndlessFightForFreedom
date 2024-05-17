@@ -132,9 +132,4 @@ public class Witch extends Person implements Actions, Enemy {
             super.getCurrentTile().setItem(Optional.of(coins));
         }
     }
-
-    @Override
-    public void die() {
-        super.getImage().makeInvisible();
-    }
 }

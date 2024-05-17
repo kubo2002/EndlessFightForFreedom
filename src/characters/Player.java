@@ -123,13 +123,6 @@ public class Player extends Person implements Actions {
     @Override
     public void receiveAttack(double damage) {
         super.getHpBar().subtractLife(damage);
-        //TODO dokoncit co sa ma stat ked zomrie hrdina
-    }
 
-    @Override
-    public void die() {
-        super.getHpBar().hideHpBar();
-        super.getImage().makeInvisible();
     }
-
 }

@@ -5,6 +5,7 @@ import characters.Person;
 import characters.Player;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class Room {
     private RoomGenerator map;
@@ -112,9 +113,6 @@ public abstract class Room {
     public void addCharacter(Person person) {
         this.spawnedCharacters.add(person);
     }
-    public void removeEnemy(Enemy enemy) {
-        this.spawnedCharacters.remove(enemy);
-    }
     public ArrayList<Person> getSpawnedCharacters() {
         return this.spawnedCharacters;
     }
@@ -123,5 +121,19 @@ public abstract class Room {
     }
     public ArrayList<Tile> getSurroundings(int x, int y) {
         return this.tiles[y][x].getSurroundings();
+    }
+
+    public void deleteCharacters(boolean deleteAll) {
+        Iterator<Person> characters = this.spawnedCharacters.iterator();
+
+        while (characters.hasNext()) {
+            Person p = characters.next();
+            if (!p.getState()) {
+                System.out.println("vymazal som");
+                p.hide();
+                characters.remove();
+                p = null;
+            }
+        }
     }
 }

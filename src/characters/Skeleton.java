@@ -78,7 +78,7 @@ public class Skeleton extends Person implements Actions, Enemy {
         }
     }
 
-    public void findTarget() {
+    private void findTarget() {
         for (Tile tile : super.getCurrentRoom().getSurroundings(this.getPositionX(), this.getPositionY())) {
             if (tile.getCharacter().isPresent()) {
                 this.performAttack(tile.getCharacter().get());
@@ -98,14 +98,9 @@ public class Skeleton extends Person implements Actions, Enemy {
         } else {
             super.setState(false);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.hide();
+            //super.hide();
             Coins coins = new Coins(super.getPositionX(), super.getPositionY());
             super.getCurrentTile().setItem(Optional.of(coins));
         }
-    }
-
-    @Override
-    public void die() {
-
     }
 }

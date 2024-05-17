@@ -23,17 +23,17 @@ public class RoomManager {
                 market.getMerchant().terminateOffer();
             }
             if (room == TypeOfRoom.BATTLEGROUND) {
-                this.deleteCharacters();
+                this.current.deleteCharacters(true);
                 this.current = Battleground.getInstance();
                 this.current.showMap();
                 this.current.spawnCharacters();
             } else if (room == TypeOfRoom.MARKET) {
-                this.deleteCharacters();
+                this.current.deleteCharacters(true);
                 this.current = Market.getInstance();
                 this.current.showMap();
                 this.current.spawnCharacters();
             } else if (room == TypeOfRoom.TEMPLE) {
-                this.deleteCharacters();
+                this.current.deleteCharacters(true);
                 this.current = Temple.getInstance();
                 this.current.showMap();
                 this.current.spawnCharacters();
