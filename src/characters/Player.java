@@ -3,8 +3,8 @@ package characters;
 import fri.shapesge.Manager;
 import inventory.*;
 import room.Market;
-import room.RoomManager;
 import room.ScoreBoard;
+import room.Tile;
 
 public class Player extends Person implements Actions {
     private Manager manager;
@@ -32,6 +32,7 @@ public class Player extends Person implements Actions {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
             super.moveImage(0, -90);
             super.setPositionY(super.getPositionY() - 1);
+            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
         }
     }
@@ -40,6 +41,7 @@ public class Player extends Person implements Actions {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
             super.moveImage(0, 90);
             super.setPositionY(super.getPositionY() + 1);
+            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
 
         }
@@ -49,6 +51,7 @@ public class Player extends Person implements Actions {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
             super.moveImage(-90, 0);
             super.setPositionX(super.getPositionX() - 1);
+            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
         }
     }
@@ -57,6 +60,7 @@ public class Player extends Person implements Actions {
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
             super.moveImage(90, 0);
             super.setPositionX(super.getPositionX() + 1);
+            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
 
         }
@@ -89,7 +93,13 @@ public class Player extends Person implements Actions {
         int clickedX = (x - 45) / 90;
         int clickedY = (y - 45) / 90;
 
-        //TODO podmineka kde pozerat ci na priliehajucej kachlicke je nenemak a hitnut ho.
+        for (Tile tile : super.getCurrentRoom().getSurroundings(this.getPositionX(), this.getPositionY())) {
+            if ((tile.getPositionX() - 45) / 90 == clickedX && (tile.getPositionY() - 45) / 90 == clickedY && tile.isOccupied()) {
+                if (tile.getCharacter().isPresent()) {
+                    this.performAttack(tile.getCharacter().get());
+                }
+            }
+        }
     }
     @Override
     public void performAttack(Actions person) {

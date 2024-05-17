@@ -11,9 +11,6 @@ import java.util.HashMap;
 public class Merchant extends Person {
     private HashMap<Item, Double> offer;
     private Offer offerSlots;
-    private int positionX;
-    private int positionY;
-    private double bank;
 
     public Merchant() {
         super(TypeOfPerson.MERCHANT);

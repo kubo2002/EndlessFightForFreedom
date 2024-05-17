@@ -1,8 +1,10 @@
 package room;
 
+import characters.Actions;
 import fri.shapesge.Image;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Tile {
     private int positionX;
@@ -10,11 +12,12 @@ public class Tile {
     private final int lengthOfTile = 90;
     private Image image;
     private boolean isOccupied;
-    private Tile precursor;
+    private Optional<Actions> character;
     private ArrayList<Tile> surroundings;
     private boolean areDoors;
     public Tile() {
         this.surroundings = new ArrayList<>();
+        this.character = Optional.empty();
     }
     public void setPicture(int type) {
         switch (type) {
@@ -47,21 +50,12 @@ public class Tile {
         this.image.changePosition(this.positionX, this.positionY);
         this.image.makeVisible();
     }
-
-    public void setPrecursor(Tile precursor) {
-        this.precursor = precursor;
-    }
-    public Tile getPrecursor() {
-        return this.precursor;
-    }
     public int getLengthOfTile() {
         return this.lengthOfTile;
     }
-
     public int getPositionX() {
         return this.positionX;
     }
-
     public int getPositionY() {
         return this.positionY;
     }
@@ -69,7 +63,16 @@ public class Tile {
         return this.isOccupied;
     }
     public void setOccupied(boolean occupied) {
+        if (!occupied) {
+            this.character = Optional.empty();
+        }
         this.isOccupied = occupied;
+    }
+    public void setCharacter(Actions character) {
+        this.character = Optional.of(character);
+    }
+    public Optional<Actions> getCharacter() {
+        return this.character;
     }
     public void addSurrounding(Tile tile) {
         this.surroundings.add(tile);
@@ -80,8 +83,10 @@ public class Tile {
     public void show() {
         this.image.makeVisible();
     }
-
     public void hide() {
         this.image.makeInvisible();
+    }
+    public ArrayList<Tile> getSurroundings() {
+        return this.surroundings;
     }
 }

@@ -1,8 +1,6 @@
 package characters;
 
 import fri.shapesge.Manager;
-import room.Room;
-
 import java.util.ArrayList;
 
 public class Witch extends Person implements Actions, Enemy {

@@ -71,9 +71,21 @@ public abstract class Room {
             for (int column = 1; column < this.tiles[row].length - 1; column++) {
                 if (column - 1 > 0) {
                     this.tiles[row][column].addSurrounding(this.tiles[row][column - 1]);
+                    if (row - 1 > 0) {
+                        this.tiles[row][column].addSurrounding(this.tiles[row - 1][column - 1]);
+                    }
+                    if (row + 1 <= this.tiles.length) {
+                        this.tiles[row][column].addSurrounding(this.tiles[row + 1][column - 1]);
+                    }
                 }
                 if (column + 1 <= this.tiles[row].length) {
                     this.tiles[row][column].addSurrounding(this.tiles[row][column + 1]);
+                    if (row - 1 > 0) {
+                        this.tiles[row][column].addSurrounding(this.tiles[row - 1][column + 1]);
+                    }
+                    if (row + 1 <= this.tiles.length) {
+                        this.tiles[row][column].addSurrounding(this.tiles[row + 1][column + 1]);
+                    }
                 }
                 if (row - 1 > 0) {
                     this.tiles[row][column].addSurrounding(this.tiles[row - 1][column]);
@@ -108,5 +120,8 @@ public abstract class Room {
     }
     public TypeOfRoom getRoomType() {
         return this.roomType;
+    }
+    public ArrayList<Tile> getSurroundings(int x, int y) {
+        return this.tiles[y][x].getSurroundings();
     }
 }

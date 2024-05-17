@@ -2,6 +2,7 @@ package room;
 
 
 import characters.Player;
+import characters.Skeleton;
 import characters.Witch;
 
 public class Battleground extends Room {
@@ -19,11 +20,17 @@ public class Battleground extends Room {
         player.setPosition(1, 1);
         super.addCharacter(player);
 
-        Witch witch = new Witch(player);
+        /*Witch witch = new Witch(player);
         super.addCharacter(witch);
         witch.setCurrentRoom(this);
         witch.setPosition(5, 5);
-        witch.move();
+        witch.move();*/
+
+        Skeleton skeleton = new Skeleton(player);
+        super.addCharacter(skeleton);
+        skeleton.setCurrentRoom(this);
+        skeleton.setPosition(9, 7);
+        skeleton.move();
     }
 
 }

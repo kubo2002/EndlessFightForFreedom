@@ -29,10 +29,14 @@ public class HpBar {
     }
 
     public void heal(double count) {
-        if (this.hp != this.fullHP) {
+        double range = this.fullHP - this.hp;
+
+        if (range < count) {
+            this.mainIdicator.changeSize(this.widthOfIndicator,  8);
+            this.hp = this.fullHP;
+        } else {
             this.hp += count;
-            double c = (this.hp * this.widthOfIndicator) / this.fullHP;
-            int newWidth = (int)(c);
+            int newWidth = (int)((this.hp * this.widthOfIndicator) / this.fullHP);
             this.mainIdicator.changeSize(newWidth,  8);
         }
     }
