@@ -1,7 +1,10 @@
 package characters;
 
 import fri.shapesge.Manager;
+import inventory.Coins;
+
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Witch extends Person implements Actions, Enemy {
     private Manager manager;
@@ -119,7 +122,15 @@ public class Witch extends Person implements Actions, Enemy {
 
     @Override
     public void receiveAttack(double damage) {
-        super.getHpBar().subtractLife(damage);
+        if (super.getHpBar().isAlive()) {
+            super.getHpBar().subtractLife(damage);
+        } else {
+            super.setState(false);
+            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
+            super.hide();
+            Coins coins = new Coins(super.getPositionX(), super.getPositionY());
+            super.getCurrentTile().setItem(Optional.of(coins));
+        }
     }
 
     @Override

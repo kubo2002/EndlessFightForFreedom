@@ -40,9 +40,6 @@ public class HpBar {
             this.mainIdicator.changeSize(newWidth,  8);
         }
     }
-    public double getHp() {
-        return this.hp;
-    }
     public void move(int x, int y) {
         this.background.moveHorizontal(x);
         this.background.moveVertical(y);
@@ -54,7 +51,6 @@ public class HpBar {
         this.mainIdicator.changePosition(x, y);
     }
     public void showHpBar() {
-
         this.background.makeVisible();
         this.mainIdicator.makeVisible();
     }

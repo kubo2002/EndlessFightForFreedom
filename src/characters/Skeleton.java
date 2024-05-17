@@ -1,6 +1,10 @@
 package characters;
 
 import fri.shapesge.Manager;
+import inventory.Coins;
+import room.Tile;
+
+import java.util.Optional;
 
 public class Skeleton extends Person implements Actions, Enemy {
     private Manager manager;
@@ -17,6 +21,7 @@ public class Skeleton extends Person implements Actions, Enemy {
     @Override
     public void move() {
         if (super.getState()) {
+            this.findTarget();
             if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY() + 1)) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(this.getType().getSpeed(), this.getType().getSpeed());
@@ -73,14 +78,30 @@ public class Skeleton extends Person implements Actions, Enemy {
         }
     }
 
+    public void findTarget() {
+        for (Tile tile : super.getCurrentRoom().getSurroundings(this.getPositionX(), this.getPositionY())) {
+            if (tile.getCharacter().isPresent()) {
+                this.performAttack(tile.getCharacter().get());
+            }
+        }
+    }
+
     @Override
     public void performAttack(Actions person) {
-
+        person.receiveAttack(this.damage);
     }
 
     @Override
     public void receiveAttack(double damage) {
-        super.getHpBar().subtractLife(damage);
+        if (super.getHpBar().isAlive()) {
+            super.getHpBar().subtractLife(damage);
+        } else {
+            super.setState(false);
+            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
+            super.hide();
+            Coins coins = new Coins(super.getPositionX(), super.getPositionY());
+            super.getCurrentTile().setItem(Optional.of(coins));
+        }
     }
 
     @Override

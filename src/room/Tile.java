@@ -2,7 +2,7 @@ package room;
 
 import characters.Actions;
 import fri.shapesge.Image;
-
+import inventory.Item;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -15,9 +15,11 @@ public class Tile {
     private Optional<Actions> character;
     private ArrayList<Tile> surroundings;
     private boolean areDoors;
+    private Optional<Item> item;
     public Tile() {
         this.surroundings = new ArrayList<>();
         this.character = Optional.empty();
+        this.item = Optional.empty();
     }
     public void setPicture(int type) {
         switch (type) {
@@ -88,5 +90,14 @@ public class Tile {
     }
     public ArrayList<Tile> getSurroundings() {
         return this.surroundings;
+    }
+    public void clearItemSlot() {
+        this.item = Optional.empty();
+    }
+    public Optional<Item> getItem() {
+        return this.item;
+    }
+    public void setItem(Optional<Item> item) {
+        this.item = item;
     }
 }

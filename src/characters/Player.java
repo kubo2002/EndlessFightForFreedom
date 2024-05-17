@@ -34,6 +34,7 @@ public class Player extends Person implements Actions {
             super.setPositionY(super.getPositionY() - 1);
             super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
+            this.collectIfPossible();
         }
     }
     public void moveDown() {
@@ -43,7 +44,7 @@ public class Player extends Person implements Actions {
             super.setPositionY(super.getPositionY() + 1);
             super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
-
+            this.collectIfPossible();
         }
     }
     public void moveLeft() {
@@ -53,6 +54,7 @@ public class Player extends Person implements Actions {
             super.setPositionX(super.getPositionX() - 1);
             super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
+            this.collectIfPossible();
         }
     }
     public void moveRight() {
@@ -62,6 +64,7 @@ public class Player extends Person implements Actions {
             super.setPositionX(super.getPositionX() + 1);
             super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
+            this.collectIfPossible();
 
         }
     }
@@ -101,6 +104,17 @@ public class Player extends Person implements Actions {
             }
         }
     }
+
+    private void collectIfPossible() {
+        if (super.getCurrentTile().getItem().isPresent()) {
+            if (super.getCurrentTile().getItem().get() instanceof Coins) {
+                super.getCurrentTile().getItem().get().hideItem();
+                double amount = super.getCurrentTile().getItem().get().getPower();
+                this.score.addCoins(amount);
+                super.getCurrentTile().clearItemSlot();
+            }
+        }
+    }
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);
@@ -116,7 +130,6 @@ public class Player extends Person implements Actions {
     public void die() {
         super.getHpBar().hideHpBar();
         super.getImage().makeInvisible();
-        //TODO dorobit garbage collector
     }
 
 }
