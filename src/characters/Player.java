@@ -1,10 +1,15 @@
 package characters;
 
 import fri.shapesge.Manager;
-import inventory.*;
+import inventory.Inventory;
+import inventory.Item;
+import inventory.Spell;
+import inventory.Weapon;
+import inventory.Coins;
 import room.Market;
 import room.ScoreBoard;
 import room.Tile;
+import screens.SaveAndExit;
 
 public class Player extends Person implements Actions {
     private Manager manager;
@@ -105,6 +110,9 @@ public class Player extends Person implements Actions {
         }
     }
 
+    public void saveAndExit() {
+        SaveAndExit saveAndExit = new SaveAndExit();
+    }
     private void collectIfPossible() {
         if (super.getCurrentTile().getItem().isPresent()) {
             if (super.getCurrentTile().getItem().get() instanceof Coins) {

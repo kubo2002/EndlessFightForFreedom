@@ -3,7 +3,9 @@ package room;
 
 import characters.Player;
 
-public class Temple extends Room {
+import java.io.Serializable;
+
+public class Temple extends Room implements Serializable {
 
     private static final Temple TEMPLE = new Temple();
 

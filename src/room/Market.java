@@ -3,9 +3,10 @@ package room;
 import characters.Merchant;
 import characters.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Market extends Room {
+public class Market extends Room implements Serializable {
     private Merchant merchant;
     private static final Market MARKET = new Market();
     private Market() {

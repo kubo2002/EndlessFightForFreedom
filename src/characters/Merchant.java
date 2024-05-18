@@ -6,9 +6,10 @@ import inventory.TypeOfItem;
 import room.Room;
 import shop.Offer;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Merchant extends Person {
+public class Merchant extends Person implements Serializable {
     private HashMap<Item, Double> offer;
     private Offer offerSlots;
 

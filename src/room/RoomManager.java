@@ -1,19 +1,25 @@
 package room;
 
 import characters.Person;
-import inventory.Item;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class RoomManager {
+public class RoomManager implements Serializable {
     private Room current = Temple.getInstance();
-    private static final RoomManager INSTANCE = new RoomManager();
+    private static RoomManager instance;
     private RoomManager() {
         this.current.showMap();
         this.current.spawnCharacters();
     }
     public static RoomManager getInstance() {
-        return INSTANCE;
+        if (instance == null) {
+            instance = new RoomManager();
+        }
+        return instance;
+    }
+    public void end() {
+        System.exit(0);
     }
     public void switchRoom(TypeOfRoom room) {
         if (room != this.current.getRoomType()) {

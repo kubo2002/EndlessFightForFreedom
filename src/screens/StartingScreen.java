@@ -16,6 +16,7 @@ public class StartingScreen {
     private JButton loadPreviousGameButton;
     private JButton exitButton;
     private JFrame frame;
+    private RoomManager roomManager;
 
     public StartingScreen() {
         this.frame = new JFrame("Castle siege");
@@ -28,7 +29,7 @@ public class StartingScreen {
         this.newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomManager roomManager = RoomManager.getInstance();
+                StartingScreen.this.roomManager = RoomManager.getInstance();
                 StartingScreen.this.frame.dispose();
             }
 
@@ -37,10 +38,11 @@ public class StartingScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileInputStream input = new FileInputStream("src/saving/gameSave.bin");
+                    FileInputStream input = new FileInputStream("src/saving/gameSave.ser");
                     ObjectInputStream stream = new ObjectInputStream(input);
 
-                    RoomManager game = (RoomManager)stream.readObject();
+                    StartingScreen.this.roomManager = (RoomManager)stream.readObject();
+                    RoomManager.getInstance();
                     stream.close();
 
                 } catch (Exception ex) {
