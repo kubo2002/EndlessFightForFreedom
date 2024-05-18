@@ -6,7 +6,7 @@ import characters.Player;
 import java.io.Serializable;
 import java.util.List;
 
-public class Market extends Room implements Serializable {
+public class Market extends Room {
     private Merchant merchant;
     private static final Market MARKET = new Market();
     private Market() {

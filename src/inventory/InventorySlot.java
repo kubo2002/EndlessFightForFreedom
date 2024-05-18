@@ -3,19 +3,19 @@ package inventory;
 import characters.Player;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
+
+import java.io.Serializable;
 import java.util.Optional;
 
-public class InventorySlot {
+public class InventorySlot implements Serializable {
     private Optional<Item> item;
     private Image image;
-    private int countOfItem; // number of same items in same slot
     private int positionX;
     private int positionY;
     private Manager manager;
     private boolean isInventory;
     public InventorySlot() {
         this.item = Optional.empty();
-        this.countOfItem = 0;
         this.image = new Image("images/inventorySlots/inventorySlot.png");
         this.manager = new Manager();
         this.manager.manageObject(this);
@@ -45,9 +45,11 @@ public class InventorySlot {
             if (this.item.isPresent()) {
                 if (!this.isInventory) {
                     Player player = Player.getInstance();
-                    player.buyItem(this.item.get());
-                    Inventory inventory = Inventory.getInstance();
-                    inventory.addItem(this.item.get());
+                    if (player.getScoreBoard().getBank() >= this.item.get().getCost()) {
+                        player.buyItem(this.item.get());
+                        Inventory inventory = Inventory.getInstance();
+                        inventory.addItem(this.item.get());
+                    }
                 } else {
                     Player player = Player.getInstance();
                     player.useItem(this.item.get());
@@ -58,10 +60,9 @@ public class InventorySlot {
         }
     }
     public void addItem(Item item) {
-        this.countOfItem += 1;
         this.item = Optional.of(item);
         if (this.isInventory) {
-            this.item.get().setPosition(this.positionX + 1220, this.positionY + 50);
+            this.item.get().setPosition((this.positionX * 90) + 1220, (this.positionY * 90) + 50);
         }
     }
     public Optional<Item> getItem() {

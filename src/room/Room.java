@@ -1,6 +1,6 @@
 package room;
 
-import characters.Enemy;
+
 import characters.Person;
 import characters.Player;
 
@@ -123,17 +123,20 @@ public abstract class Room {
         return this.tiles[y][x].getSurroundings();
     }
 
-    public void deleteCharacters(boolean deleteAll) {
+    public ArrayList<Person> deleteCharacters() {
         Iterator<Person> characters = this.spawnedCharacters.iterator();
+        ArrayList<Person> deleted = new ArrayList<>();
 
         while (characters.hasNext()) {
             Person p = characters.next();
             if (!p.getState()) {
                 System.out.println("vymazal som");
                 p.hide();
+                deleted.add(p);
                 characters.remove();
                 p = null;
             }
         }
+        return deleted;
     }
 }

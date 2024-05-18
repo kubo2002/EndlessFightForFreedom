@@ -1,5 +1,6 @@
 package screens;
 
+import characters.Player;
 import room.RoomManager;
 
 import javax.swing.*;
@@ -26,17 +27,18 @@ public class SaveAndExit {
         this.saveAndExitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomManager room = RoomManager.getInstance();
+                /*RoomManager room = RoomManager.getInstance();
+                Player player = Player.getInstance();
                 try {
                     File file = new File("src/saving/gameSave.ser");
                     FileOutputStream input = new FileOutputStream(file);
                     ObjectOutputStream stream = new ObjectOutputStream(input);
-                    stream.writeObject(room);
+                    stream.writeObject(player.getScoreBoard());
                     stream.close();
                 } catch (Exception ex) {
                     ex.getStackTrace();
                 }
-                room.end();
+                room.end();*/
                 SaveAndExit.this.frame.dispose();
             }
         });

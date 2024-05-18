@@ -16,7 +16,7 @@ public class Witch extends Person implements Actions, Enemy {
         super(TypeOfPerson.WITCH);
         this.firedProjectiles = new ArrayList<>();
         this.target = target;
-        this.damage = TypeOfPerson.WITCH.getBaseDamage();
+        this.damage = TypeOfProjectile.WITCH_PROJECTILE.getDamage();
         this.manager = new Manager();
         this.manager.manageObject(this);
         this.deleteProjectiles();
@@ -60,41 +60,49 @@ public class Witch extends Person implements Actions, Enemy {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() + 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() + 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(-this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() - 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(-this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() - 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() + 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(-this.getType().getSpeed(), 0);
                 super.setPositionX(super.getPositionX() - 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() + 1)) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(0, this.getType().getSpeed());
                 super.setPositionY(super.getPositionY() + 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
                 this.moveImage(0, -this.getType().getSpeed());
                 super.setPositionY(super.getPositionY() - 1);
+                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
                 super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
             }
         }
@@ -127,9 +135,9 @@ public class Witch extends Person implements Actions, Enemy {
         } else {
             super.setState(false);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.hide();
             Coins coins = new Coins(super.getPositionX(), super.getPositionY());
             super.getCurrentTile().setItem(Optional.of(coins));
+            this.target.getScoreBoard().addScore();
         }
     }
 }

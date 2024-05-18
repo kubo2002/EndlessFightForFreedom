@@ -98,9 +98,9 @@ public class Skeleton extends Person implements Actions, Enemy {
         } else {
             super.setState(false);
             super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            //super.hide();
             Coins coins = new Coins(super.getPositionX(), super.getPositionY());
             super.getCurrentTile().setItem(Optional.of(coins));
+            this.target.getScoreBoard().addScore();
         }
     }
 }

@@ -58,6 +58,10 @@ public class HpBar {
         this.background.makeInvisible();
         this.mainIdicator.makeInvisible();
     }
+    public void resetHp() {
+        this.mainIdicator.changeSize(this.widthOfIndicator, 8);
+        this.hp = this.fullHP;
+    }
     public void setPositionX(int positionX) {
         this.positionX = positionX;
     }
@@ -65,6 +69,6 @@ public class HpBar {
         this.positionY = positionY;
     }
     public boolean isAlive() {
-        return this.hp > 0;
+        return this.hp >= 0;
     }
 }

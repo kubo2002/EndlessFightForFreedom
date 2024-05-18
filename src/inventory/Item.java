@@ -33,4 +33,7 @@ public abstract class Item {
     public double getCost() {
         return this.type.getCost();
     }
+    public int getMaxUse() {
+        return this.type.getMaxUse();
+    }
 }

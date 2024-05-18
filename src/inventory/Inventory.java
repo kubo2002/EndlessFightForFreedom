@@ -1,7 +1,9 @@
 package inventory;
 
 
-public class Inventory {
+import java.io.Serializable;
+
+public class Inventory implements Serializable {
     private InventorySlot[][] slots;
     private final int inventoryRange = 9;
     private final int numberOfRows = 3;
@@ -9,7 +11,6 @@ public class Inventory {
     private final int lengthOfTile = 90;
     private final int positionX = 1220;
     private final int positionY = 50;
-    private boolean visible;
     private static final Inventory INVENTORY = new Inventory();
     private Inventory() {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];

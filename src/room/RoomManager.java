@@ -1,14 +1,18 @@
 package room;
 
-import characters.Person;
+import java.util.HashMap;
 
-import java.io.Serializable;
-import java.util.Iterator;
-
-public class RoomManager implements Serializable {
-    private Room current = Temple.getInstance();
+public class RoomManager {
+    private Room current;
     private static RoomManager instance;
+    private HashMap<TypeOfRoom, Room> rooms;
     private RoomManager() {
+        this.rooms = new HashMap<>();
+        this.rooms.put(TypeOfRoom.BATTLEGROUND, Battleground.getInstance());
+        this.rooms.put(TypeOfRoom.MARKET, Market.getInstance());
+        this.rooms.put(TypeOfRoom.TEMPLE, Temple.getInstance());
+
+        this.current = this.rooms.get(TypeOfRoom.TEMPLE);
         this.current.showMap();
         this.current.spawnCharacters();
     }
@@ -28,36 +32,14 @@ public class RoomManager implements Serializable {
                 var market = (Market)this.current;
                 market.getMerchant().terminateOffer();
             }
-            if (room == TypeOfRoom.BATTLEGROUND) {
-                this.current.deleteCharacters(true);
-                this.current = Battleground.getInstance();
-                this.current.showMap();
-                this.current.spawnCharacters();
-            } else if (room == TypeOfRoom.MARKET) {
-                this.current.deleteCharacters(true);
-                this.current = Market.getInstance();
-                this.current.showMap();
-                this.current.spawnCharacters();
-            } else if (room == TypeOfRoom.TEMPLE) {
-                this.current.deleteCharacters(true);
-                this.current = Temple.getInstance();
-                this.current.showMap();
-                this.current.spawnCharacters();
-            }
+
+            this.current.deleteCharacters();
+            this.current = this.rooms.get(room);
+            this.current.showMap();
+            this.current.spawnCharacters();
+
         }
     }
-
-    private void deleteCharacters() {
-        Iterator<Person> characters = this.current.getSpawnedCharacters().iterator();
-
-        while (characters.hasNext()) {
-            Person p = characters.next();
-            p.hide();
-            characters.remove();
-            p = null;
-        }
-    }
-
     public void showDialog() {
         DialogWindow dialog = DialogWindow.getInstance();
         if (!dialog.isOn()) {

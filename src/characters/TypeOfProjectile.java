@@ -1,7 +1,7 @@
 package characters;
 
 public enum TypeOfProjectile {
-    WITCH_PROJECTILE("witch_projectile", 100, 30);
+    WITCH_PROJECTILE("witch_projectile", 1, 30);
     private final String path;
     private final Double damage;
     private final int speed;

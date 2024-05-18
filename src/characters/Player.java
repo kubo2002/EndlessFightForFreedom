@@ -15,9 +15,9 @@ public class Player extends Person implements Actions {
     private Manager manager;
     private Inventory inventory;
     private ScoreBoard score;
-    private int amountOfCoins; //TODO pridat zbieranie minci
     private double damage;
     private static Player player = new Player();
+    private int useCount;
     private Player() {
         super(TypeOfPerson.KNIGHT);
         this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
@@ -95,6 +95,7 @@ public class Player extends Person implements Actions {
             super.getHpBar().heal(item.getPower());
         } else if (item instanceof Weapon) {
             this.damage = item.getPower();
+            this.useCount = item.getMaxUse();
         }
     }
     public void checkTarget(int x, int y) {
@@ -104,12 +105,16 @@ public class Player extends Person implements Actions {
         for (Tile tile : super.getCurrentRoom().getSurroundings(this.getPositionX(), this.getPositionY())) {
             if ((tile.getPositionX() - 45) / 90 == clickedX && (tile.getPositionY() - 45) / 90 == clickedY && tile.isOccupied()) {
                 if (tile.getCharacter().isPresent()) {
+                    if (this.useCount > 0) {
+                        this.useCount -= 1;
+                    } else {
+                        this.damage = TypeOfPerson.KNIGHT.getBaseDamage();
+                    }
                     this.performAttack(tile.getCharacter().get());
                 }
             }
         }
     }
-
     public void saveAndExit() {
         SaveAndExit saveAndExit = new SaveAndExit();
     }
@@ -123,6 +128,15 @@ public class Player extends Person implements Actions {
             }
         }
     }
+    public ScoreBoard getScoreBoard() {
+        return this.score;
+    }
+    public void setScoreBoard(ScoreBoard score) {
+        this.score = score;
+    }
+    public int getScore() {
+        return this.score.getScore();
+    }
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);
@@ -131,6 +145,5 @@ public class Player extends Person implements Actions {
     @Override
     public void receiveAttack(double damage) {
         super.getHpBar().subtractLife(damage);
-
     }
 }

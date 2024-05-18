@@ -3,7 +3,9 @@ package room;
 import fri.shapesge.FontStyle;
 import fri.shapesge.TextBlock;
 
-public class ScoreBoard {
+import java.io.Serializable;
+
+public class ScoreBoard implements Serializable {
     private int score;
     private double bank;
     private TextBlock totalCoins;
@@ -12,7 +14,7 @@ public class ScoreBoard {
     public ScoreBoard(int score, double bank) {
         this.score = score;
         this.bank = bank;
-        this.totalCoins = new TextBlock(String.format("Total coins in a pocket : %.2f", this.bank));
+        this.totalCoins = new TextBlock(String.format("Total coins in a packet : %.2f", this.bank));
         this.totalCoins.changeFont("Pixelify sans", FontStyle.BOLD, 40);
         this.totalCoins.changeColor("white");
         this.totalCoins.changePosition(1220, 700);
@@ -44,5 +46,8 @@ public class ScoreBoard {
     public void addScore() {
         this.score += 1;
         this.totalScore.changeText(String.format("Total score is : %d", this.score));
+    }
+    public int getScore() {
+        return this.score;
     }
 }

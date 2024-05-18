@@ -1,6 +1,8 @@
 package screens;
 
+import characters.Player;
 import room.RoomManager;
+import room.ScoreBoard;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -16,8 +18,6 @@ public class StartingScreen {
     private JButton loadPreviousGameButton;
     private JButton exitButton;
     private JFrame frame;
-    private RoomManager roomManager;
-
     public StartingScreen() {
         this.frame = new JFrame("Castle siege");
         this.frame.setContentPane(this.panel1);
@@ -29,7 +29,7 @@ public class StartingScreen {
         this.newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StartingScreen.this.roomManager = RoomManager.getInstance();
+                RoomManager roomManager = RoomManager.getInstance(); // pridat nacitaneho hraca cize nejaky setter tam dat
                 StartingScreen.this.frame.dispose();
             }
 
@@ -41,10 +41,11 @@ public class StartingScreen {
                     FileInputStream input = new FileInputStream("src/saving/gameSave.ser");
                     ObjectInputStream stream = new ObjectInputStream(input);
 
-                    StartingScreen.this.roomManager = (RoomManager)stream.readObject();
-                    RoomManager.getInstance();
+                    RoomManager roomManager = RoomManager.getInstance();
+                    Player player = Player.getInstance();
+                    var score = (ScoreBoard)stream.readObject();
+                    player.setScoreBoard(score);
                     stream.close();
-
                 } catch (Exception ex) {
                     ex.getStackTrace();
                 }
