@@ -9,7 +9,10 @@ import inventory.Coins;
 import room.Market;
 import room.ScoreBoard;
 import room.Tile;
+import screens.EndOfGame;
 import screens.SaveAndExit;
+
+import java.util.Optional;
 
 public class Player extends Person implements Actions {
     private Manager manager;
@@ -28,7 +31,6 @@ public class Player extends Person implements Actions {
         this.score = new ScoreBoard(0, 50);
         this.score.showScoreOnScreen(true);
     }
-
     public static Player getInstance() {
         return player;
     }
@@ -73,7 +75,6 @@ public class Player extends Person implements Actions {
 
         }
     }
-
     public void wakeMerchantUp(int x, int y) {
         int clickedX = (x - this.getCurrentRoom().getPositionX()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
         int clickedY = (y - this.getCurrentRoom().getPositionY()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
@@ -124,7 +125,7 @@ public class Player extends Person implements Actions {
                 super.getCurrentTile().getItem().get().hideItem();
                 double amount = super.getCurrentTile().getItem().get().getPower();
                 this.score.addCoins(amount);
-                super.getCurrentTile().clearItemSlot();
+                super.getCurrentTile().setItem(Optional.empty());
             }
         }
     }
@@ -134,16 +135,17 @@ public class Player extends Person implements Actions {
     public void setScoreBoard(ScoreBoard score) {
         this.score = score;
     }
-    public int getScore() {
-        return this.score.getScore();
-    }
     @Override
     public void performAttack(Actions person) {
         person.receiveAttack(this.damage);
     }
-
     @Override
     public void receiveAttack(double damage) {
-        super.getHpBar().subtractLife(damage);
+        if (super.getHpBar().isAlive()) {
+            super.getHpBar().subtractLife(damage);
+        } else {
+            EndOfGame resetScreen = EndOfGame.getInstance();
+            super.setState(false);
+        }
     }
 }

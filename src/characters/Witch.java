@@ -1,115 +1,80 @@
 package characters;
 
-import fri.shapesge.Manager;
-import inventory.Coins;
-
 import java.util.ArrayList;
-import java.util.Optional;
 
-public class Witch extends Person implements Actions, Enemy {
-    private Manager manager;
-    private double damage;
+/**
+ * Trieda reprezentujuca nepriatela (Witch).
+ *
+ * @author Jakub Gubany
+ *
+ */
+public class Witch extends Enemy {
     private ArrayList<Projectile> firedProjectiles;
-    private Player target;
 
+    /**
+     * Konstruktor triedy Witch.
+     *
+     * @param target Ciel t.j. hrac po ktorom bude Witch utocit strielanim projektilov.
+     */
     public Witch(Player target) {
-        super(TypeOfPerson.WITCH);
+        super(TypeOfPerson.WITCH, target);
         this.firedProjectiles = new ArrayList<>();
-        this.target = target;
-        this.damage = TypeOfProjectile.WITCH_PROJECTILE.getDamage();
-        this.manager = new Manager();
-        this.manager.manageObject(this);
         this.deleteProjectiles();
     }
 
-    //TODO skraslit vetvy ifov
+    /**
+     * Zameriava v pravidelnych casovych intervaloch hraca a striela po nom projektily.
+     */
     public void tick() {
         if (super.getState()) {
-            if (this.target.getPositionX() == super.getPositionX()) {
-                if (this.firedProjectiles.size() < 5) {
-                    Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, this.target);
-                    if (this.target.getPositionY() < super.getPositionY()) {
-                        projectile.setPosition(super.getPositionX(), super.getPositionY() - 1);
-                    }
-                    if (this.target.getPositionY() > super.getPositionY()) {
-                        projectile.setPosition(super.getPositionX(), super.getPositionY() + 1);
-                    }
-                    projectile.moveProjectile();
-                    this.firedProjectiles.add(projectile);
-                }
-            } else if (this.target.getPositionY() == super.getPositionY()) {
-                if (this.firedProjectiles.size() < 5) {
-                    Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, this.target);
-                    if (this.target.getPositionX() < super.getPositionX()) {
-                        projectile.setPosition(super.getPositionX() - 1, super.getPositionY());
-                    }
-                    if (this.target.getPositionX() > super.getPositionX()) {
-                        projectile.setPosition(super.getPositionX() + 1, super.getPositionY());
-                    }
-                    projectile.moveProjectile();
-                    this.firedProjectiles.add(projectile);
-                }
+            if (super.getTarget().getPositionX() == super.getPositionX()) {
+                this.shootProjectile(super.getTarget().getPositionY(), super.getPositionY(), 0, -1);
+            } else if (super.getTarget().getPositionY() == super.getPositionY()) {
+                this.shootProjectile(super.getTarget().getPositionX(), super.getPositionX(), -1, 0);
             }
         }
     }
 
+    /**
+     * Zamieri projektil podla polohy hraca a nepriatel po nom vystreli
+     *
+     * @param targetPosition zamierena pozicia hraca
+     * @param currentPosition aktualna pozicia nepriatela
+     * @param cX konstanta ktorou sa prenasobia pozicie podla toho, do ktorej strany sa ma hybat projektil
+     * @param cY konstanta ktorou sa prenasobia pozicie podla toho, do ktorej strany sa ma hybat projektil
+     */
+    private void shootProjectile(int targetPosition, int currentPosition, int cX, int cY) {
+        if (this.firedProjectiles.size() < 5) {
+            Projectile projectile = new Projectile(TypeOfProjectile.WITCH_PROJECTILE, this, super.getTarget());
+            if (targetPosition < currentPosition) {
+                projectile.setPosition(super.getPositionX() + cX, super.getPositionY() + cY);
+            }
+            if (targetPosition > currentPosition) {
+                projectile.setPosition(super.getPositionX() - cX, super.getPositionY() - cY);
+            }
+            projectile.moveProjectile();
+            this.firedProjectiles.add(projectile);
+        }
+    }
+
+    /**
+     * Hybe postavou do urcenych smerov.
+     *
+     * Witch sa hybe horizontalne alebo vertiklne.
+     *
+     */
+    @Override
     public void move() {
         this.tick();
-        if (super.getState()) {
-            if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() + 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() + 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(-this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() - 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(-this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() - 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() + 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(-this.getType().getSpeed(), 0);
-                super.setPositionX(super.getPositionX() - 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() + 1)) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(0, this.getType().getSpeed());
-                super.setPositionY(super.getPositionY() + 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-                this.moveImage(0, -this.getType().getSpeed());
-                super.setPositionY(super.getPositionY() - 1);
-                super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-                super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
-            }
-        }
+        super.move();
     }
 
+    /**
+     *
+     * Premazava zbytocne neaktivne projektily.
+     *
+     */
     public void deleteProjectiles() {
-
         for (int i = 0; i < this.firedProjectiles.size(); i++) {
             if (!super.getState()) {
                 var projectile = this.firedProjectiles.get(i);
@@ -123,21 +88,27 @@ public class Witch extends Person implements Actions, Enemy {
         }
     }
 
+    /**
+     *
+     * Vykona utok na oponenta.
+     *
+     * @param person postava na ktoru sa utoci.
+     *
+     */
     @Override
     public void performAttack(Actions person) {
-        person.receiveAttack(this.damage);
+        super.performAttack(person);
     }
 
+    /**
+     *
+     * Prijme poskodenie od oponenta.
+     *
+     * @param damage double hodnota poskodenia.
+     *
+     */
     @Override
     public void receiveAttack(double damage) {
-        if (super.getHpBar().isAlive()) {
-            super.getHpBar().subtractLife(damage);
-        } else {
-            super.setState(false);
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            Coins coins = new Coins(super.getPositionX(), super.getPositionY());
-            super.getCurrentTile().setItem(Optional.of(coins));
-            this.target.getScoreBoard().addScore();
-        }
+        super.receiveAttack(damage);
     }
 }

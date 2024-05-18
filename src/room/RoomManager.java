@@ -22,6 +22,9 @@ public class RoomManager {
         }
         return instance;
     }
+    public void newInstance() {
+        instance = null;
+    }
     public void end() {
         System.exit(0);
     }

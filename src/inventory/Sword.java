@@ -13,10 +13,6 @@ public class Sword extends Item implements Weapon {
         this.type = type;
     }
     @Override
-    public void addToInventory() {
-
-    }
-    @Override
     public void setPosition(int x, int y) {
         super.setPosition(x, y);
     }

@@ -6,7 +6,6 @@ import room.Tile;
 public abstract class Person {
     private Room currentRoom;
     private TypeOfPerson type;
-    private int numberOfFrames;
     private Image image;
     private int positionX;
     private int positionY;
@@ -15,19 +14,17 @@ public abstract class Person {
     public Person(TypeOfPerson type) {
         this.state = true;
         this.type = type;
-        this.numberOfFrames = type.getNumberOfFrames();
         this.image = new Image(String.format("images/characters/%s/%s_0.png", this.type.getName(), this.type.getName()));
         this.image.makeVisible();
         this.hpBar = new HpBar(type.getBaseHp());
     }
-
     public void moveImage(int x, int y) {
         this.hpBar.move(x, y);
         this.image.moveHorizontal(x);
         this.image.moveVertical(y);
     }
     public void setPosition(int x, int y) {
-        this.positionX = x; // tu to prepocita z (255, 256) na (2,3)
+        this.positionX = x;
         this.positionY = y;
         this.currentRoom.getAllTiles()[this.positionY][this.positionX].setOccupied(true);
         this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
@@ -45,9 +42,6 @@ public abstract class Person {
     }
     public Room getCurrentRoom() {
         return this.currentRoom;
-    }
-    public Image getImage() {
-        return this.image;
     }
     public int getPositionX() {
         return this.positionX;
@@ -76,9 +70,6 @@ public abstract class Person {
     public void hide() {
         this.hpBar.hideHpBar();
         this.image.makeInvisible();
-    }
-    public void show() {
-        this.image.makeVisible();
     }
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;

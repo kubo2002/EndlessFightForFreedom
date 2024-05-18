@@ -1,15 +1,11 @@
 package screens;
 
-import characters.Player;
 import room.RoomManager;
-
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 
 public class SaveAndExit {
     private JButton saveAndExitButton;

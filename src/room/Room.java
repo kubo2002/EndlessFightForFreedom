@@ -130,7 +130,6 @@ public abstract class Room {
         while (characters.hasNext()) {
             Person p = characters.next();
             if (!p.getState()) {
-                System.out.println("vymazal som");
                 p.hide();
                 deleted.add(p);
                 characters.remove();

@@ -12,9 +12,9 @@ public class Projectile implements Projectiles {
     private TypeOfProjectile type;
     private Manager manager;
     private Actions person;
-    private Actions target;
+    private Player target;
     private boolean state;
-    public Projectile(TypeOfProjectile type, Actions person, Actions target) {
+    public Projectile(TypeOfProjectile type, Actions person, Player target) {
         this.person = person;
         this.target = target;
         this.destinationX = target.getPositionX() * 90 + 45;

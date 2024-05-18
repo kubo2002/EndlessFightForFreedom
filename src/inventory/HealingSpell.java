@@ -13,11 +13,6 @@ public class HealingSpell extends Item implements Spell {
     }
 
     @Override
-    public void addToInventory() {
-
-    }
-
-    @Override
     public void setPosition(int x, int y) {
         super.setPosition(x, y);
     }

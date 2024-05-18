@@ -22,7 +22,6 @@ public class StartingScreen {
         this.frame = new JFrame("Castle siege");
         this.frame.setContentPane(this.panel1);
         this.frame.pack();
-        //this.frame.getContentPane().setBackground(Color.black); //TODO nastavit farbu pozadia na ciernu.
         this.frame.setSize(1920, 1080);
         this.frame.setVisible(true);
 

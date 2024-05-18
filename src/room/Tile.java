@@ -91,13 +91,13 @@ public class Tile {
     public ArrayList<Tile> getSurroundings() {
         return this.surroundings;
     }
-    public void clearItemSlot() {
-        this.item = Optional.empty();
-    }
     public Optional<Item> getItem() {
         return this.item;
     }
     public void setItem(Optional<Item> item) {
-        this.item = item;
+        if (this.item.isEmpty()) {
+            this.item = item;
+            this.item.get().showItem();
+        }
     }
 }

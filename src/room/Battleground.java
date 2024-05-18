@@ -1,6 +1,10 @@
 package room;
 
-import characters.*;
+import characters.Enemy;
+import characters.Person;
+import characters.Player;
+import characters.Skeleton;
+import characters.Witch;
 import fri.shapesge.Manager;
 
 import java.util.ArrayList;

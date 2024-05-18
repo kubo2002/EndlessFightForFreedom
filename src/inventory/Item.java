@@ -1,6 +1,6 @@
 package inventory;
 import fri.shapesge.Image;
-public abstract class Item {
+public class Item {
     private int positionX;
     private int positionY;
     private Image image;
@@ -9,7 +9,6 @@ public abstract class Item {
         this.image = new Image(String.format("images/items/%s/%s.png", type.getCategory(), type.getPath()));
         this.type = type;
     }
-    public abstract void addToInventory();
     public void setPosition(int x, int y) {
         this.positionX = (x - 45) / 90;
         this.positionY = (y - 45) / 90;
