@@ -35,49 +35,25 @@ public class Player extends Person implements Actions {
         return player;
     }
     public void moveUp() {
-        if (super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.moveImage(0, -90);
-            super.setPositionY(super.getPositionY() - 1);
-            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
-            this.collectIfPossible();
-        }
+        this.direction(0, -1);
     }
     public void moveDown() {
-        if (super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() + 1)) {
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.moveImage(0, 90);
-            super.setPositionY(super.getPositionY() + 1);
-            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
-            this.collectIfPossible();
-        }
+        this.direction(0, 1);
     }
     public void moveLeft() {
-        if (super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.moveImage(-90, 0);
-            super.setPositionX(super.getPositionX() - 1);
-            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
-            this.collectIfPossible();
-        }
+        this.direction(-1, 0);
     }
     public void moveRight() {
-        if (super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), false);
-            super.moveImage(90, 0);
-            super.setPositionX(super.getPositionX() + 1);
-            super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-            super.changeOccupiedPosition(super.getPositionX(), super.getPositionY(), true);
-            this.collectIfPossible();
-
-        }
+        this.direction(1, 0);
+    }
+    @Override
+    public void direction(int cX, int cY) {
+        super.direction(cX, cY);
+        this.collectIfPossible();
     }
     public void wakeMerchantUp(int x, int y) {
-        int clickedX = (x - this.getCurrentRoom().getPositionX()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
-        int clickedY = (y - this.getCurrentRoom().getPositionY()) / this.getCurrentRoom().getAllTiles()[0][0].getLengthOfTile();
+        int clickedX = (x - this.getCurrentRoom().getPositionX()) / 90;
+        int clickedY = (y - this.getCurrentRoom().getPositionY()) / 90;
 
         if (super.getCurrentRoom() instanceof Market) {
             var market = (Market)super.getCurrentRoom();
@@ -132,6 +108,7 @@ public class Player extends Person implements Actions {
     public ScoreBoard getScoreBoard() {
         return this.score;
     }
+
     public void setScoreBoard(ScoreBoard score) {
         this.score = score;
     }
@@ -143,8 +120,10 @@ public class Player extends Person implements Actions {
     public void receiveAttack(double damage) {
         if (super.getHpBar().isAlive()) {
             super.getHpBar().subtractLife(damage);
+            PlayerData data = PlayerData.getInstance();
+            data.setHp(super.getHpBar().getHp());
         } else {
-            EndOfGame resetScreen = EndOfGame.getInstance();
+            EndOfGame endScreen = EndOfGame.getInstance();
             super.setState(false);
         }
     }

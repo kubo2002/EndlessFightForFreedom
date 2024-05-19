@@ -3,7 +3,15 @@ import fri.shapesge.Image;
 import room.Room;
 import room.Tile;
 
-public abstract class Person {
+/**
+ * Trieda reprezentujuca postavu v hre.
+ *
+ * Z postavy dalej dedia zakladne vlastnosti postavy Hrac, Merchant, Enemies
+ *
+ * @author Jakub Gubany
+ *
+ */
+public class Person {
     private Room currentRoom;
     private TypeOfPerson type;
     private Image image;
@@ -11,6 +19,13 @@ public abstract class Person {
     private int positionY;
     private HpBar hpBar;
     private boolean state;
+
+    /**
+     * Konstruktor triedy Postava.
+     *
+     * @param type typ postavy ktora bude triedou vytvorena.
+     *
+     */
     public Person(TypeOfPerson type) {
         this.state = true;
         this.type = type;
@@ -18,6 +33,13 @@ public abstract class Person {
         this.image.makeVisible();
         this.hpBar = new HpBar(type.getBaseHp());
     }
+
+    /**
+     * Posunie obrazok postavy po ploche o danu vzdialenost.
+     *
+     * @param x
+     * @param y
+     */
     public void moveImage(int x, int y) {
         this.hpBar.move(x, y);
         this.image.moveHorizontal(x);
@@ -26,7 +48,7 @@ public abstract class Person {
     public void setPosition(int x, int y) {
         this.positionX = x;
         this.positionY = y;
-        this.currentRoom.getAllTiles()[this.positionY][this.positionX].setOccupied(true);
+        this.currentRoom.setOccupiedTile(this.positionX, this.positionY, true);
         this.image.changePosition(this.positionX * 90 + 45, this.positionY * 90 + 45);
         this.hpBar.setPosition(this.positionX * 90 + 60, this.positionY * 90 + 35);
         this.hpBar.setPositionX(this.positionX);
@@ -35,10 +57,20 @@ public abstract class Person {
         this.image.makeVisible();
     }
     public void changeOccupiedPosition(int x , int y, boolean occupied) {
-        this.currentRoom.getAllTiles()[y][x].setOccupied(occupied);
+        this.currentRoom.setOccupiedTile(x, y, occupied);
+    }
+    public void direction(int cX, int cY) {
+        if (this.getCurrentRoom().isAbleToMove(this.positionX + cX, this.positionY + cY)) {
+            this.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
+            this.moveImage(cX * this.getType().getSpeed(), cY * this.getType().getSpeed());
+            this.positionX += cX;
+            this.positionY += cY;
+            this.currentRoom.setCharacterOnTile(this.positionX, this.positionY, this);
+            this.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
+        }
     }
     public Tile getCurrentTile() {
-        return this.currentRoom.getAllTiles()[this.positionY][this.positionX];
+        return this.currentRoom.getTile(this.positionX, this.positionY);
     }
     public Room getCurrentRoom() {
         return this.currentRoom;

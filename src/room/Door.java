@@ -1,8 +1,6 @@
 package room;
 
 import fri.shapesge.Manager;
-
-
 public class Door {
     private int positionX;
     private int positionY;
@@ -20,7 +18,6 @@ public class Door {
         if (this.positionX == clickedX && this.positionY == clickedY) {
             RoomManager roomManager = RoomManager.getInstance();
             roomManager.showDialog();
-            //TODO pridat podmienku kedy sa otvoria dvere.
         }
     }
 

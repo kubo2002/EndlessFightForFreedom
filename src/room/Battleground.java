@@ -6,8 +6,7 @@ import characters.Player;
 import characters.Skeleton;
 import characters.Witch;
 import fri.shapesge.Manager;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -47,7 +46,7 @@ public class Battleground extends Room {
      */
     public void findDeadCharacters() {
         Random randomNumber = new Random();
-        ArrayList<Person> deleted = super.deleteCharacters();
+        List<Person> deleted = super.deleteCharacters();
 
         for (Person revived : deleted) {
             if (revived instanceof Enemy) {

@@ -1,6 +1,7 @@
 package screens;
 
 import characters.Player;
+import characters.PlayerData;
 import room.RoomManager;
 import room.ScoreBoard;
 
@@ -42,8 +43,13 @@ public class StartingScreen {
 
                     RoomManager roomManager = RoomManager.getInstance();
                     Player player = Player.getInstance();
-                    var score = (ScoreBoard)stream.readObject();
-                    player.setScoreBoard(score);
+
+                    var score = (PlayerData)stream.readObject();
+                    player.getScoreBoard().setScore(score.getScore());
+                    player.getScoreBoard().setBank(score.getBank());
+                    player.getHpBar().setHp(score.getHp());
+                    player.getScoreBoard().updateScreenText();
+
                     stream.close();
                 } catch (Exception ex) {
                     ex.getStackTrace();

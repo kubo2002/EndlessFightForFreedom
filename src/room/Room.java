@@ -1,11 +1,12 @@
 package room;
 
-
+import characters.Actions;
 import characters.Person;
 import characters.Player;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class Room {
     private RoomGenerator map;
@@ -22,7 +23,6 @@ public abstract class Room {
         this.spawnedCharacters = new ArrayList<>();
 
     }
-
     public abstract void spawnCharacters();
     public void showMap() {
         int[][] matrixOfMap = this.map.createMap();
@@ -45,7 +45,6 @@ public abstract class Room {
         }
         this.setSurroundings();
     }
-
     public void hideMap() {
         for (int i = 0; i < this.spawnedCharacters.size(); i++) {
             if (this.spawnedCharacters.get(i) instanceof Player) {
@@ -97,12 +96,8 @@ public abstract class Room {
             }
         }
     }
-
     public boolean isAbleToMove(int x, int y) {
         return !this.tiles[y][x].isOccupied();
-    }
-    public Tile[][] getAllTiles() {
-        return this.tiles;
     }
     public int getPositionX() {
         return this.positionX;
@@ -113,17 +108,20 @@ public abstract class Room {
     public void addCharacter(Person person) {
         this.spawnedCharacters.add(person);
     }
-    public ArrayList<Person> getSpawnedCharacters() {
-        return this.spawnedCharacters;
-    }
     public TypeOfRoom getRoomType() {
         return this.roomType;
     }
-    public ArrayList<Tile> getSurroundings(int x, int y) {
-        return this.tiles[y][x].getSurroundings();
+    public List<Tile> getSurroundings(int x, int y) {
+        return Collections.unmodifiableList(this.tiles[y][x].getSurroundings());
     }
-
-    public ArrayList<Person> deleteCharacters() {
+    public void setCharacterOnTile(int x, int y, Person character) {
+        var c = (Actions)character;
+        this.tiles[y][x].setCharacter(c);
+    }
+    public void setOccupiedTile(int x, int y, boolean occupied) {
+        this.tiles[y][x].setOccupied(occupied);
+    }
+    public List<Person> deleteCharacters() {
         Iterator<Person> characters = this.spawnedCharacters.iterator();
         ArrayList<Person> deleted = new ArrayList<>();
 
@@ -136,6 +134,9 @@ public abstract class Room {
                 p = null;
             }
         }
-        return deleted;
+        return Collections.unmodifiableList(deleted);
+    }
+    public Tile getTile(int x, int y) {
+        return this.tiles[y][x];
     }
 }

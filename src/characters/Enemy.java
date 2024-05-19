@@ -18,31 +18,33 @@ public class Enemy extends Person implements Actions {
     public void move() {
         if (super.getState()) {
             if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                this.direction(1, 0);
+                super.direction(1, 0);
             } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                this.direction(1, 0);
+                super.direction(1, 0);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                this.direction(-1, 0);
+                super.direction(-1, 0);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                this.direction(-1, 0);
+                super.direction(-1, 0);
             } else if (super.getPositionX() < this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() + 1, super.getPositionY())) {
-                this.direction(1, 0);
+                super.direction(1, 0);
             } else if (super.getPositionX() > this.target.getPositionX() && super.getPositionY() == this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX() - 1, super.getPositionY())) {
-                this.direction(-1, 0);
+                super.direction(-1, 0);
             } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() < this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() + 1)) {
-                this.direction(0, 1);
+                super.direction(0, 1);
             } else if (super.getPositionX() == this.target.getPositionX() && super.getPositionY() > this.target.getPositionY() && super.getCurrentRoom().isAbleToMove(super.getPositionX(), super.getPositionY() - 1)) {
-                this.direction(0, -1);
+                super.direction(0, -1);
             }
         }
     }
     public void direction(int cX, int cY) {
-        super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
-        this.moveImage(cX * this.getType().getSpeed(), cY * this.getType().getSpeed());
-        super.setPositionX(super.getPositionX() + cX);
-        super.setPositionY(super.getPositionY() + cY);
-        super.getCurrentRoom().getAllTiles()[super.getPositionY()][super.getPositionX()].setCharacter(this);
-        super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
+        if (super.getCurrentRoom().isAbleToMove(super.getPositionX() + cX, super.getPositionY() + cY)) {
+            super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), false);
+            this.moveImage(cX * this.getType().getSpeed(), cY * this.getType().getSpeed());
+            super.setPositionX(super.getPositionX() + cX);
+            super.setPositionY(super.getPositionY() + cY);
+            super.getCurrentRoom().setCharacterOnTile(super.getPositionX(), super.getPositionY(), this);
+            super.changeOccupiedPosition(this.getPositionX(), this.getPositionY(), true);
+        }
     }
     public void placeCoin() {
         Coins coins = new Coins(super.getPositionX(), super.getPositionY());

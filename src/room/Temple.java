@@ -18,7 +18,6 @@ public class Temple extends Room implements Serializable {
     @Override
     public void spawnCharacters() {
         Player player = Player.getInstance();
-        //player.show();
         player.setCurrentRoom(this);
         player.setPosition(1, 1);
         super.addCharacter(player);

@@ -4,6 +4,8 @@ import characters.Actions;
 import fri.shapesge.Image;
 import inventory.Item;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class Tile {
@@ -13,7 +15,7 @@ public class Tile {
     private Image image;
     private boolean isOccupied;
     private Optional<Actions> character;
-    private ArrayList<Tile> surroundings;
+    private List<Tile> surroundings;
     private boolean areDoors;
     private Optional<Item> item;
     public Tile() {
@@ -88,8 +90,8 @@ public class Tile {
     public void hide() {
         this.image.makeInvisible();
     }
-    public ArrayList<Tile> getSurroundings() {
-        return this.surroundings;
+    public List<Tile> getSurroundings() {
+        return Collections.unmodifiableList(this.surroundings);
     }
     public Optional<Item> getItem() {
         return this.item;

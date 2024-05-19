@@ -71,4 +71,12 @@ public class HpBar {
     public boolean isAlive() {
         return this.hp >= 0;
     }
+    public double getHp() {
+        return this.hp;
+    }
+    public void setHp(double hp) {
+        this.hp = hp;
+        int newWidth =  (int)(this.hp * this.widthOfIndicator / this.fullHP);
+        this.mainIdicator.changeSize(newWidth,  8);
+    }
 }

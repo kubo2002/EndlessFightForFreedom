@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class Merchant extends Person {
     private HashMap<Item, Double> offer;
     private Offer offerSlots;
-
     public Merchant() {
         super(TypeOfPerson.MERCHANT);
         this.offer = new HashMap<>();
@@ -21,12 +20,10 @@ public class Merchant extends Person {
         this.offer.put(new Sword(TypeOfItem.SWORD_2), TypeOfItem.SWORD_2.getCost());
         this.offerSlots = new Offer(this.offer);
     }
-
     public HashMap<Item, Double> getOffer() {
         this.offerSlots.offerOnScreen();
         return this.offer;
     }
-
     public void terminateOffer() {
         this.offerSlots.hideOffer();
     }
