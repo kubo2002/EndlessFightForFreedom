@@ -1,2 +1,4 @@
 Player : dfsdfsdfsf | Score : 0 
 Player : sdsdfdfs | Score : 0 
+Player : gfgdfg | Score : 1 
+Player : dfsdfsdf | Score : 1 

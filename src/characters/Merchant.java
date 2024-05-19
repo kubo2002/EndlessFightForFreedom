@@ -1,15 +1,28 @@
 package characters;
 
-import inventory.HealingSpell;
+import inventory.items.HealingSpell;
 import inventory.Item;
-import inventory.Sword;
+import inventory.items.Sword;
 import inventory.TypeOfItem;
 import shop.Offer;
 import java.util.HashMap;
 
+/**
+ * Trieda reprezentujuca obchodnika v hre.
+ *
+ * @author Jakub Gubany
+ *
+ */
 public class Merchant extends Person {
     private HashMap<Item, Double> offer;
     private Offer offerSlots;
+
+    /**
+     * Konstruktor triedy Merchant.
+     *
+     * Obchodnik ma v nom zadefinovane itemy ktore je schopny predavat.  ocas hry.
+     *
+     */
     public Merchant() {
         super(TypeOfPerson.MERCHANT);
         this.offer = new HashMap<>();
@@ -20,14 +33,31 @@ public class Merchant extends Person {
         this.offer.put(new Sword(TypeOfItem.SWORD_2), TypeOfItem.SWORD_2.getCost());
         this.offerSlots = new Offer(this.offer);
     }
-    public HashMap<Item, Double> getOffer() {
+
+    /**
+     * Ukaze ponuku itemov na hracej ploche.
+     *
+     */
+    public void showOffer() {
         this.offerSlots.offerOnScreen();
-        return this.offer;
     }
+
+    /**
+     *
+     * Zrusi ponuku itemov z hracej plochy.
+     *
+     */
     public void terminateOffer() {
         this.offerSlots.hideOffer();
     }
 
+    /**
+     * Nastavi obchodnikovi info o tom, kolko m hrac aktualne penazi.
+     *
+     * Podla tejto informacie vie obchodnik ponuknut prave tie itemy na ktore hrac ma dostatok finnacii.
+     *
+     * @param bank double objem financii hraca.
+     */
     public void setPlayersBank(double bank) {
         this.offerSlots.setBank(bank);
     }

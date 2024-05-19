@@ -1,7 +1,7 @@
 package screens;
 
-import characters.Player;
-import characters.PlayerData;
+import characters.player.Player;
+import characters.player.PlayerData;
 import room.RoomManager;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -11,12 +11,24 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
+/**
+ * Trieda StartingScreen reprezentuje úvodnú obrazovku hry, kde hráč môže začať novú hru, načítať predchádzajúcu hru alebo ukončiť hru.
+ *
+ * @autor Jakub Gubany
+ */
 public class StartingScreen {
     private JPanel panel1;
     private JButton newGameButton;
     private JButton loadPreviousGameButton;
     private JButton exitButton;
     private JFrame frame;
+    /**
+     * Konštruktor vytvára nové okno úvodnej obrazovky hry.
+     *
+     * Po stlačení tlačidla "New game" sa otvorí okno pre vytvorenie novej hry.
+     * Po stlačení tlačidla "Load previous game" sa načíta predchádzajúca hra.
+     * Po stlačení tlačidla "Exit" sa hra ukončí.
+     */
     public StartingScreen() {
         this.frame = new JFrame("Castle siege");
         this.frame.setContentPane(this.panel1);
@@ -64,7 +76,6 @@ public class StartingScreen {
             public void actionPerformed(ActionEvent e) {
                 StartingScreen.this.frame.dispose();
             }
-
         });
     }
 }

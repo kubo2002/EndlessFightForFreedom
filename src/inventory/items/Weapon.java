@@ -1,4 +1,4 @@
-package inventory;
+package inventory.items;
 
 public interface Weapon {
 }

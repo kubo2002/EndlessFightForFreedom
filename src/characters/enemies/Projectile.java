@@ -1,13 +1,16 @@
-package characters;
+package characters.enemies;
 
+import characters.Actions;
+import characters.TypeOfProjectile;
+import characters.player.Player;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
 
 /**
- * Trieda predstavujuca projektil a jeho spravanie (pohyb, kolizia)
+ * Trieda Projectile reprezentuje strelu v hre, ktorú môže vystreliť postava na cieľ.
+ * Obsahuje informácie o pozícii strely, jej type, rýchlosti a cieľovej pozícii.
  *
- * @author Jakub Gubány
- *
+ * @autor Jakub Gubany
  */
 public class Projectile {
     private Image image;
@@ -20,15 +23,12 @@ public class Projectile {
     private Actions person;
     private Player target;
     private boolean state;
-
     /**
+     * Konštruktor triedy Projectile.
      *
-     * Konstruktor triedy Projectile
-     *
-     * @param type typ konkretnej postavy ktora bude triedou vytvorena.
-     * @param person osoba od ktorej projektil pochadza
-     * @param target ciel ktory ma projektil zasiahnut
-     *
+     * @param type typ strely
+     * @param person postava, ktorá vystrelila strelu
+     * @param target cieľová hráčska postava
      */
     public Projectile(TypeOfProjectile type, Actions person, Player target) {
         this.person = person;
@@ -40,11 +40,9 @@ public class Projectile {
         this.manager = new Manager();
         this.manager.manageObject(this);
     }
-
     /**
-     *
-     * Posuva projektil po ploche
-     *
+     * Metóda na pohyb strely smerom k cieľu.
+     * Ak strela dosiahne cieľ, vykoná útok a stane sa neviditeľnou.
      */
     public void moveProjectile() {
         if (this.positionX < this.destinationX) {
@@ -64,14 +62,11 @@ public class Projectile {
             this.image.makeInvisible();
         }
     }
-
     /**
+     * Metóda na pohyb strely v zadanom smere.
      *
-     * Vyberie ktorym smerom sa bude projektil pohybovat.
-     *
-     * @param cX konstanta ktora udava kladny / zaporny smer pohybu po osi X
-     * @param cY konstanta ktora udava kladny / zaporny smer pohybu po osi Y
-     *
+     * @param cX smer pohybu po osi X
+     * @param cY smer pohybu po osi Y
      */
     private void direction(int cX, int cY) {
 
@@ -86,19 +81,20 @@ public class Projectile {
             this.image.makeInvisible();
         }
     }
-
     /**
+     * Skontroluje, či došlo ku kolízii strely s cieľom.
      *
-     * @return
+     * @return true, ak došlo ku kolízii, inak false
      */
     private boolean areCollided() {
         return this.positionX == this.target.getPositionX() && this.positionY == this.target.getPositionY();
     }
 
     /**
+     * Nastaví pozíciu strely a zobrazí ju.
      *
-     * @param x
-     * @param y
+     * @param x x-súradnica novej pozície
+     * @param y y-súradnica novej pozície
      */
     public void setPosition(int x, int y) {
         this.state = true;
@@ -107,30 +103,26 @@ public class Projectile {
         this.image.changePosition(this.positionX, this.positionY);
         this.image.makeVisible();
     }
-
     /**
+     * Získa x-súradnicu aktuálnej pozície strely.
      *
-     * @return index v matici stvorcov z ktorych je zostavena plocha.
-     *
+     * @return x-súradnica aktuálnej pozície
      */
     public int getPositionX() {
         return (this.positionX - 45) / 90;
     }
-
     /**
+     * Získa y-súradnicu aktuálnej pozície strely.
      *
-     * @return index v matici stvorcov z ktorych je zostavena plocha.
+     * @return y-súradnica aktuálnej pozície
      */
     public int getPositionY() {
         return (this.positionY - 45) / 90;
     }
-
     /**
+     * Získa stav strely (true, ak je strela aktívna).
      *
-     * @return ivrati ci je naboj v aktivnom alebo neaktivnom stave.
-     *
-     * Hodnota sluzi na vymazanie neaktivnych nabojov z hry.
-     *
+     * @return stav strely
      */
     public boolean getState() {
         return this.state;

@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Trieda reprezentuje dlaždicu v miestnosti.
+ *
+ * @autor Jakub Gubany
+ */
 public class Tile {
     private int positionX;
     private int positionY;
@@ -18,11 +23,20 @@ public class Tile {
     private List<Tile> surroundings;
     private boolean areDoors;
     private Optional<Item> item;
+
+    /**
+     * Konštruktor triedy Tile.
+     */
     public Tile() {
         this.surroundings = new ArrayList<>();
         this.character = Optional.empty();
         this.item = Optional.empty();
     }
+    /**
+     * Nastavuje obrázok dlaždice na základe zadaného typu.
+     *
+     * @param type typ dlaždice
+     */
     public void setPicture(int type) {
         switch (type) {
             case 1:
@@ -48,54 +62,120 @@ public class Tile {
                 break;
         }
     }
+    /**
+     * Nastavuje pozíciu dlaždice.
+     *
+     * @param x x-ová pozícia dlaždice
+     * @param y y-ová pozícia dlaždice
+     */
     public void setTilePosition(int x, int y) {
         this.positionX = x;
         this.positionY = y;
         this.image.changePosition(this.positionX, this.positionY);
         this.image.makeVisible();
     }
-    public int getLengthOfTile() {
-        return this.lengthOfTile;
-    }
+
+    /**
+     * Vráti pozíciu na ose X.
+     *
+     * @return int pozicia X.
+     */
     public int getPositionX() {
         return this.positionX;
     }
+
+    /**
+     * Vráti pozíciu na ose Y.
+     *
+     * @return int pozícia Y.
+     */
     public int getPositionY() {
         return this.positionY;
     }
+    /**
+     * Zistí, či je dlaždica obsadená.
+     *
+     * @return true, ak je dlaždica obsadená, inak false
+     */
     public boolean isOccupied() {
         return this.isOccupied;
     }
+    /**
+     * Nastaví stav obsadenosti dlaždice.
+     *
+     * @param occupied true, ak je dlaždica obsadená, inak false
+     */
     public void setOccupied(boolean occupied) {
         if (!occupied) {
             this.character = Optional.empty();
         }
         this.isOccupied = occupied;
     }
+    /**
+     * Nastaví postavu na dlaždicu.
+     *
+     * @param character postava, ktorá sa má nastaviť
+     */
     public void setCharacter(Actions character) {
         this.character = Optional.of(character);
     }
+    /**
+     * Vráti postavu na dlaždici.
+     *
+     * @return postava na dlaždici
+     */
     public Optional<Actions> getCharacter() {
         return this.character;
     }
+    /**
+     * Pridá okolité dlaždice.
+     *
+     * @param tile dlaždica, ktorá sa má pridať ako okolitá
+     */
     public void addSurrounding(Tile tile) {
         this.surroundings.add(tile);
     }
+    /**
+     * Zistí, či sú na dlaždici dvere.
+     *
+     * @return true, ak sú na dlaždici dvere, inak false
+     */
     public boolean areDoors() {
         return this.areDoors;
     }
+    /**
+     * Zobrazí dlaždicu.
+     */
     public void show() {
         this.image.makeVisible();
     }
+    /**
+     * Skryje dlaždicu.
+     */
     public void hide() {
         this.image.makeInvisible();
     }
+    /**
+     * Získava okolité dlaždice.
+     *
+     * @return neupraviteľný zoznam okolitých dlaždíc
+     */
     public List<Tile> getSurroundings() {
         return Collections.unmodifiableList(this.surroundings);
     }
+    /**
+     * Získava item, ktorý leží na dlaždici.
+     *
+     * @return item na dlaždici
+     */
     public Optional<Item> getItem() {
         return this.item;
     }
+    /**
+     * Nastaví item na dlaždicu.
+     *
+     * @param item item, ktorý sa má nastaviť
+     */
     public void setItem(Optional<Item> item) {
         if (this.item.isEmpty()) {
             this.item = item;

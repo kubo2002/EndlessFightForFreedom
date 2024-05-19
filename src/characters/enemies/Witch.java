@@ -1,4 +1,7 @@
-package characters;
+package characters.enemies;
+
+import characters.*;
+import characters.player.Player;
 
 import java.util.ArrayList;
 

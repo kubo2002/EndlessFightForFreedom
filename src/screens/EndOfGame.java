@@ -1,6 +1,6 @@
 package screens;
 
-import characters.PlayerData;
+import characters.player.PlayerData;
 import room.RoomManager;
 
 import javax.swing.JButton;
@@ -10,13 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 
+/**
+ * Trieda EndOfGame reprezentuje obrazovku konca hry.
+ * Umožňuje hráčovi ukončiť aplikáciu.
+ *
+ * @autor Jakub Gubany
+ */
 public class EndOfGame {
-    private JButton newGameButton;
     private JButton exitButton;
     private JPanel panel;
-    private JButton menu;
     private JFrame frame;
     private static final EndOfGame RESET = new EndOfGame();
+
+    /**
+     * Konstruktor triedy EndOfGame.
+     */
     private EndOfGame() {
         this.frame = new JFrame("Game over");
         this.frame.setContentPane(this.panel);
@@ -40,6 +48,11 @@ public class EndOfGame {
             }
         });
     }
+    /**
+     * Vráti inštanciu obrazovky konca hry.
+     *
+     * @return inštancia obrazovky konca hry
+     */
     public static EndOfGame getInstance() {
         return RESET;
     }

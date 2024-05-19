@@ -1,6 +1,6 @@
 package screens;
 
-import characters.PlayerData;
+import characters.player.PlayerData;
 import room.RoomManager;
 
 import javax.swing.JButton;
@@ -10,11 +10,21 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Trieda PlayerInfo reprezentuje obrazovku, na ktorej hráč zadáva svoje meno.
+ * Po potvrdení mena sa vytvorí hráč s týmto menom a obrazovka sa zatvorí.
+ *
+ * @autor Jakub Gubany
+ */
 public class PlayerInfo {
     private JPanel panel;
     private JButton submitNameButton;
     private JTextField name;
     private JFrame frame;
+    /**
+     * Konštruktor vytvára nové okno pre zadanie mena hráča.
+     * Po stlačení tlačidla na odoslanie mena sa vytvorí hráč s daným menom.
+     */
     public PlayerInfo() {
         this.frame = new JFrame("Write your name");
         this.frame.setContentPane(this.panel);

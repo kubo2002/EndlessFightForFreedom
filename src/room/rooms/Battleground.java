@@ -1,27 +1,46 @@
-package room;
+package room.rooms;
 
-import characters.Enemy;
+import characters.enemies.Enemy;
 import characters.Person;
-import characters.Player;
-import characters.Skeleton;
-import characters.Witch;
+import characters.player.Player;
+import characters.enemies.Skeleton;
+import characters.enemies.Witch;
 import fri.shapesge.Manager;
+import room.Room;
+import room.TypeOfRoom;
+
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * Singleton Battleground predstavuje bojisko v hre.
+ *
+ * @autor Jakub Gubany
+ */
 public class Battleground extends Room {
     private static final Battleground BATTLEGROUND = new Battleground();
     private Manager manager;
     private Player player;
+
+    /**
+     * Privatny konstruktor triedy Battleground.
+     */
     private Battleground() {
         super(TypeOfRoom.BATTLEGROUND);
         this.manager =  new Manager();
         this.manager.manageObject(this);
     }
+    /**
+     * Metoda pre ziskanie instancie triedy Battleground.
+     *
+     * @return instancia bojiska
+     */
     public static Battleground getInstance() {
         return BATTLEGROUND;
     }
+    /**
+     * Metoda na vytvorenie postav v bojisku.
+     */
     public void spawnCharacters() {
         this.player = Player.getInstance();
         this.player.setCurrentRoom(this);
@@ -42,7 +61,8 @@ public class Battleground extends Room {
     }
 
     /**
-     * Spawner nepriatelov.
+     * Metoda na vyhladanie mrtvych postav a ich respawn do bojiska.
+     * Postavy su nahodne umiestnene na bojisku.
      */
     public void findDeadCharacters() {
         Random randomNumber = new Random();
@@ -64,6 +84,11 @@ public class Battleground extends Room {
             }
         }
     }
+    /**
+     * Metoda na ziskanie hraca v bojisku.
+     *
+     * @return hrac v bojisku
+     */
     public Player getPlayer() {
         return this.player;
     }

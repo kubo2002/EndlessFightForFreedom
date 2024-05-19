@@ -7,6 +7,11 @@ import inventory.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Trieda Offer reprezentuje ponuku predmetov v obchode.
+ *
+ * @autor Jakub Gubany
+ */
 public class Offer {
     private InventorySlot[][] slots;
     private HashMap<Item, Double> warehouse;
@@ -18,6 +23,10 @@ public class Offer {
     private final int positionX = 1220;
     private final int positionY = 400;
     private boolean isVisible;
+    /**
+     * Konstruktor triedy Offer vytvara instanciu ponuky predmetov na zaklade skladu.
+     * @param warehouse HashMap, ktore obsahuje predmety a ich ceny v sklade.
+     */
     public Offer(HashMap<Item, Double> warehouse) {
         this.slots = new InventorySlot[this.numberOfRows][this.numberOfColumns];
         this.warehouse = warehouse;
@@ -31,7 +40,9 @@ public class Offer {
             }
         }
     }
-
+    /**
+     * Metoda offerOnScreen zobrazuje alebo skryva ponuku predmetov na obrazovke.
+     */
     public void offerOnScreen() {
         if (!this.isVisible) {
             this.showOffer();
@@ -41,6 +52,9 @@ public class Offer {
             this.isVisible = false;
         }
     }
+    /**
+     * Metoda calculateOffer vypocitava ponuku predmetov na zaklade dostupnych financii hraca.
+     */
     private void calculateOffer() {
         for (Item warehouseSlot : this.warehouse.keySet()) {
             if (this.warehouse.get(warehouseSlot) <= this.bank) {
@@ -48,7 +62,9 @@ public class Offer {
             }
         }
     }
-
+    /**
+     * Metoda showOffer zobrazuje ponuku predmetov na obrazovke.
+     */
     private void showOffer() {
         this.calculateOffer();
         int posX = this.positionX;
@@ -81,7 +97,9 @@ public class Offer {
             }
         }
     }
-
+    /**
+     * Metoda hideOffer skryva ponuku predmetov na obrazovke.
+     */
     public void hideOffer() {
         this.offer = new ArrayList<>();
         for (int rows = 0; rows < this.numberOfRows; rows++) {
@@ -94,7 +112,10 @@ public class Offer {
             }
         }
     }
-
+    /**
+     * Metoda setBank nastavuje aktualnu hodnotu poctu minci hraca.
+     * @param bank Hodnota poctu minci hraca.
+     */
     public void setBank(double bank) {
         this.bank = bank;
     }

@@ -1,10 +1,20 @@
-package room;
+package screens;
 
-import javax.swing.*;
+import room.RoomManager;
+import room.TypeOfRoom;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Singleton DialogWindow reprezentuje dialógové okno na výber miestnosti.
+ * Umožňuje hráčovi vybrať, do ktorej miestnosti chce vstúpiť.
+ *
+ * @autor Jakub Gubany
+ */
 public class DialogWindow {
     private JPanel mainPanel;
     private JButton battleGround;
@@ -14,13 +24,24 @@ public class DialogWindow {
     private boolean isOn;
     private final RoomManager roomManager = RoomManager.getInstance();
     private static final DialogWindow INSTANCE = new DialogWindow();
+
+    /**
+     * Konstruktor triedy.
+     */
     private DialogWindow() {
 
     }
-
+    /**
+     * Vráti inštanciu dialógového okna.
+     *
+     * @return inštancia dialógového okna
+     */
     public static DialogWindow getInstance() {
         return INSTANCE;
     }
+    /**
+     * Zobrazí dialógové okno.
+     */
     public void showDialogWindow () {
         this.frame = new JFrame("Choose Room");
         this.frame.setContentPane(this.mainPanel);
@@ -56,6 +77,11 @@ public class DialogWindow {
 
 
     }
+    /**
+     * Overí, či je dialógové okno zapnuté.
+     *
+     * @return true, ak je okno zapnuté, inak false
+     */
     public boolean isOn() {
         return this.isOn;
     }

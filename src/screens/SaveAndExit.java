@@ -1,6 +1,6 @@
 package screens;
 
-import characters.Player;
+import characters.player.Player;
 import room.RoomManager;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,12 +11,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Trieda SaveAndExit reprezentuje obrazovku,
+ * na ktorej hráč môže uložiť svoje rozohrane skore a ukončiť hru alebo ukončiť hru bez ukladania.
+ *
+ * @autor Jakub Gubany
+ */
 public class SaveAndExit {
     private JButton saveAndExitButton;
     private JButton exitWithoutSaveButton;
     private JPanel panel;
     private JFrame frame;
-
+    /**
+     * Konštruktor vytvára nové okno pre uloženie a ukončenie hry.
+     * Po stlačení tlačidla save&exit sa hráčovo skóre uloží a hra sa ukončí.
+     * Po stlačení tlačidla exit bez ukladania sa hra ukončí bez uloženia pokroku.
+     */
     public SaveAndExit() {
         this.frame = new JFrame("Castle siege");
         this.frame.setContentPane(this.panel);

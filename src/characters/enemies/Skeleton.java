@@ -1,4 +1,7 @@
-package characters;
+package characters.enemies;
+import characters.Actions;
+import characters.player.Player;
+import characters.TypeOfPerson;
 import room.Tile;
 
 /**
