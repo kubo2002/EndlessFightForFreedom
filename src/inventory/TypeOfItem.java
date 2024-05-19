@@ -7,17 +7,17 @@ package inventory;
  * @autor Jakub Gubany
  */
 public enum TypeOfItem {
-    HEAL_1("healingSpell_1", "spells",  30.0, 10, 1),
-    HEAl_2("healingSpell_2", "spells",  60.0, 20, 1),
-    HEAl_3("healingSpell_3", "spells",  90.0, 30, 1),
-    SWORD_1("sword_1", "swords", 50, 20, 10),
-    SWORD_2("sword_2", "swords", 100, 50, 5),
-    COINS("coins", "coins", 20, 0, 1);
-    private final String path;
-    private final String category;
-    private final double power;
-    private final double cost;
-    private final int maxUse;
+    HEAL_1("healingSpell_1", "spells",  30.0, 10, 1), // jeden z moznych typov healing spellu
+    HEAl_2("healingSpell_2", "spells",  60.0, 20, 1), // jeden z moznych typov healing spellu
+    HEAl_3("healingSpell_3", "spells",  90.0, 30, 1), // jeden z moznych typov healing spellu
+    SWORD_1("sword_1", "swords", 50, 20, 10), // jeden z moznych typov healing swordu
+    SWORD_2("sword_2", "swords", 100, 50, 5), // jeden z moznych typov healing swordu
+    COINS("coins", "coins", 20, 0, 1); // mince
+    private final String path; // cesta k obrazku
+    private final String category; // nazov balicka v ktorom treba hladat
+    private final double power; // sila itemu
+    private final double cost; // cena itemu v shope
+    private final int maxUse; // maximalny mozny pocet pouitia jedneho itemu
 
     /**
      * Konstruktor enum triedy.

@@ -6,9 +6,9 @@ import characters.TypeOfPerson;
 import fri.shapesge.Manager;
 import inventory.Inventory;
 import inventory.Item;
-import inventory.items.Spell;
-import inventory.items.Weapon;
 import inventory.items.Coins;
+import inventory.items.HealingSpell;
+import inventory.items.Sword;
 import room.rooms.Market;
 import room.ScoreBoard;
 import room.Tile;
@@ -27,7 +27,7 @@ public class Player extends Person implements Actions {
     private Inventory inventory;
     private ScoreBoard score;
     private double damage;
-    private static Player player = new Player();
+    private static Player player = new Player(); // instancia hraca.
     private int useCount;
     /**
      * Konstruktor triedy Player.
@@ -129,9 +129,9 @@ public class Player extends Person implements Actions {
      * @param item Item item z inventara.
      */
     public void useItem(Item item) {
-        if (item instanceof Spell) {
+        if (item instanceof HealingSpell) {
             super.getHpBar().heal(item.getPower());
-        } else if (item instanceof Weapon) {
+        } else if (item instanceof Sword) {
             this.damage = item.getPower();
             this.useCount = item.getMaxUse();
         }

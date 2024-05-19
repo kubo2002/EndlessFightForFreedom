@@ -1,8 +1,9 @@
 package characters.enemies;
 
-import characters.*;
+import characters.Actions;
+import characters.TypeOfPerson;
+import characters.TypeOfProjectile;
 import characters.player.Player;
-
 import java.util.ArrayList;
 
 /**

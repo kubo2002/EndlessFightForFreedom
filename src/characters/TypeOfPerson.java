@@ -7,15 +7,15 @@ package characters;
  * @autor Jakub Gubany
  */
 public enum TypeOfPerson {
-    KNIGHT("knight", 2, 2.5, 50, 90),
-    MERCHANT("merchant", 2, 0, 999, 0),
-    WITCH("witch", 2, 3, 40, 90),
-    SKELETON("skeleton", 2, 3, 50, 90);
-    private final String name;
-    private final int numberOfFrames;
-    private final double baseDamage;
-    private final double baseHp;
-    private final int speed;
+    KNIGHT("knight", 2, 2.5, 50, 90),  //typ hraca s vymenovanymi vlastnostami.
+    MERCHANT("merchant", 2, 0, 999, 0), //typ obchodnika s vymenovanymi vlastnostami.
+    WITCH("witch", 2, 3, 40, 90), //typ carodejnice s vymenovanymi vlastnostami.
+    SKELETON("skeleton", 2, 3, 50, 90); //typ kostlivca s vymenovanymi vlastnostami.
+    private final String name; //nazov obrazka prefix
+    private final int numberOfFrames; // pocet snimkov
+    private final double baseDamage; // zakladne poskodenie
+    private final double baseHp; // zakladny pocet zivotov
+    private final int speed; // rychlost pohybu
 
     /**
      * Konštruktor pre enum TypeOfPerson.

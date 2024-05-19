@@ -10,7 +10,7 @@ import inventory.TypeOfItem;
  *
  * @autor Jakub Gubany
  */
-public class Sword extends Item implements Weapon {
+public class Sword extends Item {
     private Image image;
     private TypeOfItem type;
     /**

@@ -3,7 +3,6 @@ package inventory.items;
 import fri.shapesge.Image;
 import inventory.Item;
 import inventory.TypeOfItem;
-import inventory.items.Spell;
 
 /**
  * Trieda HealingSpell predstavuje špecialnu polozku v inventari.
@@ -11,7 +10,7 @@ import inventory.items.Spell;
  *
  * @autor Jakub Gubany
  */
-public class HealingSpell extends Item implements Spell {
+public class HealingSpell extends Item {
     private Image image;
     /**
      * Konstruktor triedy HealingSpell.

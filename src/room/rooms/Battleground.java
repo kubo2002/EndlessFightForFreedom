@@ -18,7 +18,7 @@ import java.util.Random;
  * @autor Jakub Gubany
  */
 public class Battleground extends Room {
-    private static final Battleground BATTLEGROUND = new Battleground();
+    private static final Battleground BATTLEGROUND = new Battleground(); // inastancia bojiska
     private Manager manager;
     private Player player;
 

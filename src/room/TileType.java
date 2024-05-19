@@ -7,14 +7,14 @@ package room;
  * @autor Jakub Gubany
  */
 public enum TileType {
-    STONE_WALL("images/walls/stonewall.png", true),
-    DOORS("images/walls/closeDoors.png", true),
-    DIRT_FLOWERS("images/surface/dirtblock_clean.png", false),
-    DIRT_CLEAN("images/surface/dirtblock_flowers.png", false),
-    DIRT_GRASS("images/surface/dirtblock_grass.png", false);
+    STONE_WALL("images/walls/stonewall.png", true), // typ stvorca ktory je sucastou hernej plochy
+    DOORS("images/walls/closeDoors.png", true), // typ stvorca ktory je sucastou hernej plochy
+    DIRT_FLOWERS("images/surface/dirtblock_clean.png", false), // typ stvorca ktory je sucastou hernej plochy
+    DIRT_CLEAN("images/surface/dirtblock_flowers.png", false), // typ stvorca ktory je sucastou hernej plochy
+    DIRT_GRASS("images/surface/dirtblock_grass.png", false); // typ stvorca ktory je sucastou hernej plochy
 
-    private final String path;
-    private final boolean isOccupied;
+    private final String path; // cesta k obrazku
+    private final boolean isOccupied; // bool hodnota ci je dlazdica nepriechodna by default
 
     /**
      * Konštruktor vytvára nový typ dlaždice s danou cestou k obrázku a stavom obsadenosti.

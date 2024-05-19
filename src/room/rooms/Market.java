@@ -12,7 +12,7 @@ import room.TypeOfRoom;
  */
 public class Market extends Room {
     private Merchant merchant;
-    private static final Market MARKET = new Market();
+    private static final Market MARKET = new Market(); // instancia obchodu
     /**
      * Privatny konstruktor triedy Market inicializuje trhovisko.
      */

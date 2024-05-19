@@ -15,7 +15,7 @@ public class PlayerData implements Serializable {
     private String nameOfPlayer;
 
     // Statická inštancia triedy PlayerData
-    private static final PlayerData INSTANCE = new PlayerData();
+    private static final PlayerData INSTANCE = new PlayerData(); // instancia triedy PlayerData.
 
     /**
      * Súkromný konštruktor, aby sa zabránilo vytváraniu nových inštancií.

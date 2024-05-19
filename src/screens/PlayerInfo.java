@@ -31,6 +31,9 @@ public class PlayerInfo {
         this.frame.pack();
         this.frame.setSize(1920, 1080);
         this.frame.setVisible(true);
+        /**
+         * Posle String s menom hraca do PlayerData a uchová ho počas celej hry.
+         */
         this.submitNameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

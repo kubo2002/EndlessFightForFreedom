@@ -6,10 +6,10 @@ package characters;
  * @autor Jakub Gubany
  */
 public enum TypeOfProjectile {
-    WITCH_PROJECTILE("witch_projectile", 1, 30);
-    private final String path;
-    private final Double damage;
-    private final int speed;
+    WITCH_PROJECTILE("witch_projectile", 1, 30); // typ projektilu carodejnice
+    private final String path;  // cesta k suboru
+    private final Double damage; // poskodenie
+    private final int speed; // rychlost pohybu
     /**
      * Konštruktor pre enum TypeOfProjectile.
      *

@@ -7,12 +7,12 @@ package room;
  * @autor Jakub Gubany
  */
 public enum TypeOfRoom {
-    MARKET(5, 5),
-    BATTLEGROUND(10, 10),
-    TEMPLE(5, 5);
+    MARKET(5, 5), // jeden z moznych typov miestnosti
+    BATTLEGROUND(10, 10), // jeden z moznych typov miestnosti
+    TEMPLE(5, 5); // jeden z moznych typov miestnosti
 
-    private final int numberOfTilesX;
-    private final int numberOfTilesY;
+    private final int numberOfTilesX; // pocet dlazdic na ose X
+    private final int numberOfTilesY; // pocet dlazdnic na ose Y
 
     /**
      * Konštruktor vytvára nový typ miestnosti s daným počtom dlaždíc na osi X a osi Y.

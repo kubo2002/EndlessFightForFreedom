@@ -16,7 +16,7 @@ import java.util.Optional;
 public class Tile {
     private int positionX;
     private int positionY;
-    private final int lengthOfTile = 90;
+    private final int lengthOfTile = 90; // dlzka jednej dlazdice
     private Image image;
     private boolean isOccupied;
     private Optional<Actions> character;

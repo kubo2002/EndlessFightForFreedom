@@ -35,7 +35,9 @@ public class StartingScreen {
         this.frame.pack();
         this.frame.setSize(1920, 1080);
         this.frame.setVisible(true);
-
+        /**
+         * Opyta sa hraca ci chce zacat uplne novu hru.
+         */
         this.newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +45,9 @@ public class StartingScreen {
                 StartingScreen.this.frame.dispose();
             }
         });
+        /**
+         * Opyta sa hraca ci chce nacitat posledne ulozenu hru a spustit ju.
+         */
         this.loadPreviousGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +76,9 @@ public class StartingScreen {
             }
 
         });
+        /**
+         * Opyta sa hraca ci chce ukoncit dialogove okno a tym sa ani nezapne hra.
+         */
         this.exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

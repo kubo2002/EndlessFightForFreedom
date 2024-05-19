@@ -20,7 +20,7 @@ public class EndOfGame {
     private JButton exitButton;
     private JPanel panel;
     private JFrame frame;
-    private static final EndOfGame RESET = new EndOfGame();
+    private static final EndOfGame RESET = new EndOfGame(); // instancia dialogoveho okna
 
     /**
      * Konstruktor triedy EndOfGame.
@@ -31,7 +31,11 @@ public class EndOfGame {
         this.frame.pack();
         this.frame.setSize(1920, 1080);
         this.frame.setVisible(true);
+        /**
+         *  Zapise hraca s jeho skore a menom do textoveho suboru a zrusi hru.
+         */
         this.exitButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {

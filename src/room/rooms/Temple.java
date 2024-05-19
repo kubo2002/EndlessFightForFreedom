@@ -12,7 +12,7 @@ import room.TypeOfRoom;
  */
 public class Temple extends Room {
 
-    private static final Temple TEMPLE = new Temple();
+    private static final Temple TEMPLE = new Temple(); // instancia vychodzej miestnosti
 
     /**
      * Privatny konstruktor triedy Temple.

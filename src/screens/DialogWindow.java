@@ -22,7 +22,7 @@ public class DialogWindow {
     private JButton temple;
     private JFrame frame;
     private boolean isOn;
-    private final RoomManager roomManager = RoomManager.getInstance();
+    private final RoomManager roomManager = RoomManager.getInstance(); // instancia dialogoveho okna
     private static final DialogWindow INSTANCE = new DialogWindow();
 
     /**
@@ -48,6 +48,9 @@ public class DialogWindow {
         this.frame.pack();
         this.frame.setVisible(true);
         this.isOn = true;
+        /**
+         *  Tlacidlo na vyber miestnosti typu Battleground
+         */
         this.battleGround.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,7 +59,9 @@ public class DialogWindow {
                 DialogWindow.this.frame.dispose();
             }
         });
-
+        /**
+         *  Tlacidlo na vyber miestnosti typu Market
+         */
         this.market.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,7 +70,9 @@ public class DialogWindow {
                 DialogWindow.this.frame.dispose();
             }
         });
-
+        /**
+         *  Tlacidlo na vyber miestnosti typu Temple
+         */
         this.temple.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

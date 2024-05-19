@@ -17,11 +17,11 @@ public class Offer {
     private HashMap<Item, Double> warehouse;
     private ArrayList<Item> offer;
     private double bank;
-    private final int numberOfRows = 2;
-    private final int numberOfColumns = 5;
-    private final int lengthOfTile = 90;
-    private final int positionX = 1220;
-    private final int positionY = 400;
+    private final int numberOfRows = 2; // pocet okienok ponuky na vysku
+    private final int numberOfColumns = 5; // pocet okienok ponuky na sirku
+    private final int lengthOfTile = 90; // dlzka okienka
+    private final int positionX = 1220; // suradnice ponuky zobrazenej na ploche
+    private final int positionY = 400; // suradnice ponuky zobrazenej na ploche
     private boolean isVisible;
     /**
      * Konstruktor triedy Offer vytvara instanciu ponuky predmetov na zaklade skladu.

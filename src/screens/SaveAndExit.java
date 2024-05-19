@@ -33,6 +33,9 @@ public class SaveAndExit {
         this.frame.pack();
         this.frame.setSize(1920, 1080);
         this.frame.setVisible(true);
+        /**
+         * Ulozi aktualnu hru do binarneho suboru.
+         */
         this.saveAndExitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,6 +54,9 @@ public class SaveAndExit {
                 SaveAndExit.this.frame.dispose();
             }
         });
+        /**
+         * Ukonci hru bez jej ulozenia.
+         */
         this.exitWithoutSaveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
