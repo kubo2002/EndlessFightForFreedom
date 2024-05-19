@@ -119,12 +119,5 @@ public class InventorySlot {
     public int getPositionY() {
         return this.positionY;
     }
-    /**
-     * Metoda na nastavenie, ci je slot v inventari.
-     *
-     * @param inventory true, ak je slot v inventari, inak false
-     */
-    public void isInventory(boolean inventory) {
-        this.isInventory = inventory;
-    }
+
 }
