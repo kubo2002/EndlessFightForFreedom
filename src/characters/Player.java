@@ -30,6 +30,8 @@ public class Player extends Person implements Actions {
         this.inventory.drawInventoryOnScreen();
         this.score = new ScoreBoard(0, 50);
         this.score.showScoreOnScreen(true);
+        PlayerData data = PlayerData.getInstance();
+        data.setHp(super.getHpBar().getHp());
     }
     public static Player getInstance() {
         return player;
@@ -107,10 +109,6 @@ public class Player extends Person implements Actions {
     }
     public ScoreBoard getScoreBoard() {
         return this.score;
-    }
-
-    public void setScoreBoard(ScoreBoard score) {
-        this.score = score;
     }
     @Override
     public void performAttack(Actions person) {

@@ -6,6 +6,7 @@ public class PlayerData implements Serializable {
     private int score;
     private double bank;
     private double hp;
+    private String nameOfPlayer;
     private static final PlayerData INSTANCE = new PlayerData();
     private PlayerData() {
         this.score = 0;
@@ -31,4 +32,11 @@ public class PlayerData implements Serializable {
     public double getHp() {
         return this.hp;
     }
+    public void setNameOfPlayer(String nameOfPlayer) {
+        this.nameOfPlayer = nameOfPlayer;
+    }
+    public String getName() {
+        return this.nameOfPlayer;
+    }
+
 }

@@ -1,5 +1,6 @@
 package screens;
 
+import characters.PlayerData;
 import room.RoomManager;
 
 import javax.swing.JButton;
@@ -7,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 public class EndOfGame {
     private JButton newGameButton;
@@ -24,12 +26,19 @@ public class EndOfGame {
         this.exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    PlayerData data = PlayerData.getInstance();
+                    FileWriter writer = new FileWriter("src/saving/playersHistory.txt", true);
+                    writer.write(String.format("Player : %s | Score : %d \n", data.getName(), data.getScore()));
+                    writer.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 RoomManager manager = RoomManager.getInstance();
                 manager.end();
                 EndOfGame.this.frame.dispose();
             }
         });
-
     }
     public static EndOfGame getInstance() {
         return RESET;

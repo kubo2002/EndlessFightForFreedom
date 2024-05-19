@@ -1,8 +1,6 @@
 package inventory;
 
-
 import java.io.Serializable;
-
 public class Inventory implements Serializable {
     private InventorySlot[][] slots;
     private final int inventoryRange = 9;

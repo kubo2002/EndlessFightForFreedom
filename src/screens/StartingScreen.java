@@ -3,8 +3,6 @@ package screens;
 import characters.Player;
 import characters.PlayerData;
 import room.RoomManager;
-import room.ScoreBoard;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,10 +27,9 @@ public class StartingScreen {
         this.newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RoomManager roomManager = RoomManager.getInstance(); // pridat nacitaneho hraca cize nejaky setter tam dat
+                PlayerInfo info = new PlayerInfo();
                 StartingScreen.this.frame.dispose();
             }
-
         });
         this.loadPreviousGameButton.addActionListener(new ActionListener() {
             @Override
@@ -45,12 +42,16 @@ public class StartingScreen {
                     Player player = Player.getInstance();
 
                     var score = (PlayerData)stream.readObject();
+                    score.getHp();
                     player.getScoreBoard().setScore(score.getScore());
                     player.getScoreBoard().setBank(score.getBank());
                     player.getHpBar().setHp(score.getHp());
                     player.getScoreBoard().updateScreenText();
 
+                    PlayerData data = PlayerData.getInstance();
+                    data.setNameOfPlayer(score.getName());
                     stream.close();
+
                 } catch (Exception ex) {
                     ex.getStackTrace();
                 }
